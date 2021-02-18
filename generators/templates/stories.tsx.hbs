@@ -1,0 +1,11 @@
+import {{pascalCase name}} from './{{lowerCase name}}.component'
+import { Story, Meta } from '@storybook/react/types-6-0'
+
+// titulo e componente que vão aparecer na dashboard
+export default {
+  title: '{{pascalCase name}}',
+  component: {{pascalCase name}},
+  argTypes: {}
+} as Meta
+
+export const Default: Story = (args) => <{{pascalCase name}} {...args} />

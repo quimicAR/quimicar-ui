@@ -6,9 +6,9 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>React Avancado - BoilerPlate</title>
-        <link rel="shortcut icon" href="/img/icon-512.png" />
-        <link rel="apple-touch-icon" href="/img/icon-512.png" />
+        <title>quimicAR - Átomos em Realidade Aumentada</title>
+        <link rel="shortcut icon" href="/img/atom.png" />
+        <link rel="apple-touch-icon" href="/img/atom.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta
           name="description"

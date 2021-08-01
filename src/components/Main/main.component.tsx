@@ -1,9 +1,10 @@
 import Header from 'components/Header/header.component'
 import * as SC from './main.styles'
+
 const Main = () => {
   return (
     <SC.Wrapper>
-      <Header />
+      <Header title="quimicAR" />
       {/*
 
         1 - Componente PeriodicTable

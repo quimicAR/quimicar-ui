@@ -14,6 +14,10 @@ function App({ Component, pageProps }: AppProps) {
           name="description"
           content="A simple template project to work with React, Typescript, Next, Styled Components and Storybook"
         />
+        {/* <a href="https://dryicons.com/icon/atom-icon-5761">
+          {' '}
+          Icon by Dryicons{' '}
+        </a> */}
       </Head>
       <GlobalStyles />
       <Component {...pageProps} />

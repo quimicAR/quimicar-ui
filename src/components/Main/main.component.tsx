@@ -1,4 +1,4 @@
-import Header from 'components/Header/header.component'
+import Header from '../../components/Header/header.component'
 import * as SC from './main.styles'
 
 const Main = () => {
@@ -8,7 +8,7 @@ const Main = () => {
       {/*
 
         1 - Componente PeriodicTable
-          - Montar Grid
+          - Montar Tabela
           - Separar grid-areas pelas familias
           - Componente Atomo, irá ter cor diferente de acordo com a familia (se basear pelo Figma)
       */}

@@ -6,25 +6,11 @@ export default {
   title: 'Header',
   component: Header,
   argTypes: {
-    title: { control: 'text' },
-    theme: { control: { type: 'radio', options: ['light', 'dark'] } }
+    title: { control: 'text' }
   },
   args: {
-    title: 'quimicAR',
-    theme: 'light'
+    title: 'quimicAR'
   }
 } as Meta
 
 export const Default: Story = (args) => <Header {...args} />
-
-export const Dark = Default.bind({})
-Dark.args = {
-  theme: 'dark',
-  title: 'quimicAR'
-}
-
-export const Light = Default.bind({})
-Light.args = {
-  theme: 'light',
-  title: 'quimicAR'
-}

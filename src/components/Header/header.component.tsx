@@ -1,7 +1,7 @@
 import { useTheme } from '../../hooks/use-theme'
 import * as SC from './header.styles'
-import { FiSun, FiMoon, FiSearch } from 'react-icons/fi'
-import Search from 'components/Search/search.component'
+import { FiSun, FiMoon } from 'react-icons/fi'
+import Search from '../../components/Search/search.component'
 
 interface HeaderProps {
   title?: string
@@ -18,14 +18,16 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   const toggleTheme = () =>
     theme === 'light' ? setTheme('dark') : setTheme('light')
   return (
-    <SC.Header theme={theme}>
+    <SC.Header>
       <SC.Box>
-        <SC.Logo
-          src={theme === 'light' ? iconOptions.dark : iconOptions.light}
-          alt="Imagem de um átomo"
-        ></SC.Logo>
-        <SC.Title theme={theme}>{title}</SC.Title>
-        <Search placeholder="Search..." />
+        <SC.Box margin="0px 5em 0px 0px">
+          <SC.Logo
+            src={theme === 'light' ? iconOptions.dark : iconOptions.light}
+            alt="Imagem de um átomo"
+          ></SC.Logo>
+          <SC.Title>{title}</SC.Title>
+        </SC.Box>
+        <Search />
       </SC.Box>
 
       <SC.Box>

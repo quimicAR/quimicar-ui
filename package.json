@@ -9,15 +9,17 @@
     "lint": "npx eslint src/*",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 --no-dll -s ./public",
     "build-storybook": "build-storybook",
     "generate": "yarn plop --plopfile ./generators/plopfile.js"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "next": "10.0.6",
     "next-pwa": "^5.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-icons": "^4.2.0",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {

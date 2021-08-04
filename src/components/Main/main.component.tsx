@@ -1,17 +1,17 @@
+import PeriodicTable from 'components/PeriodicTable/periodictable.component'
+import { IAtom } from 'interfaces/atom'
 import Header from '../../components/Header/header.component'
 import * as SC from './main.styles'
 
-const Main = () => {
+interface MainProps {
+  elements: IAtom[]
+}
+
+const Main: React.FC<MainProps> = ({ elements }) => {
   return (
     <SC.Wrapper>
       <Header title="quimicAR" />
-      {/*
-
-        1 - Componente PeriodicTable
-          - Montar Tabela
-          - Separar grid-areas pelas familias
-          - Componente Atomo, irá ter cor diferente de acordo com a familia (se basear pelo Figma)
-      */}
+      <PeriodicTable elements={elements} />
     </SC.Wrapper>
   )
 }

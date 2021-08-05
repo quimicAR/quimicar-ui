@@ -1,24 +1,19 @@
+import PeriodicTable from 'components/PeriodicTable/periodic-table.component'
+import useDarkMode from 'hooks/use-dark-theme'
+import { IAtom } from 'interfaces/atom'
+import Header from '../../components/Header/header.component'
 import * as SC from './main.styles'
 
-const Main = ({
-  title = 'React Avançado',
-  description = 'React, Typescript, NextJS e Styled Components'
-}) => {
+interface MainProps {
+  elements: IAtom[]
+}
+
+const Main: React.FC<MainProps> = ({ elements }) => {
+  const { isDarkMode } = useDarkMode()
   return (
-    <SC.Wrapper>
-      <SC.Logo
-        src="/img/logo.svg"
-        alt="Imagem de um átomo e React Avançado escrito ao lado"
-      ></SC.Logo>
-
-      <SC.Title>{title}</SC.Title>
-
-      <SC.Description>{description}</SC.Description>
-
-      <SC.Illustration
-        src="/img/hero-illustration.svg"
-        alt="Um desenvolvedor de frente com uma tela com código "
-      ></SC.Illustration>
+    <SC.Wrapper isDarkMode={isDarkMode}>
+      <Header title="quimicAR" />
+      <PeriodicTable elements={elements} />
     </SC.Wrapper>
   )
 }

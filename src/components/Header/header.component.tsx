@@ -1,4 +1,3 @@
-import { useTheme } from '../../hooks/use-theme'
 import * as SC from './header.styles'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import Search from '../../components/Search/search.component'

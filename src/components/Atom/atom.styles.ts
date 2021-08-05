@@ -1,31 +1,31 @@
-import { Theme } from 'hooks/use-theme'
-import styled from 'styled-components'
-
+import { Category } from 'helper/format-category'
+import styled, { css } from 'styled-components'
 interface AtomContainerStyleProps {
-  group: string
-  themeProp: Theme
+  group: Category
+  isDarkMode: boolean
 }
 
 export const AtomContainer = styled.a<AtomContainerStyleProps>`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  width: auto;
-  height: auto;
-  border-bottom: 3px solid
-    ${(props) => props.theme.elementsGroups[`${props.group}`]};
-  background-color: ${(props) => props.theme.pallete.bg};
-  padding: 4px;
-  transition: ease-in-out 0.4s;
+  ${({ theme, group, isDarkMode }) => css`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    width: auto;
+    height: auto;
+    border-bottom: 3px solid ${theme.elementsGroups[group]};
+    border: ${!isDarkMode ? '1px solid #333' : ''}
+    background-color: ${theme.pallete.bg};
+    padding: 4px;
+    transition: ease-in-out 0.4s;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.themeProp === 'light'
-        ? 'rgba(24, 31, 39, 0.1)'
-        : 'rgba(250,249,250, 0.1)'};
-    cursor: pointer;
-  }
+    &:hover {
+      background-color: ${
+        isDarkMode ? 'rgba(250,249,250, 0.1)' : 'rgba(24, 31, 39, 0.1)'
+      };
+      cursor: pointer;
+    }
+  `}
 `
 
 export const AtomicNumber = styled.h3`

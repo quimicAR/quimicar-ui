@@ -1,4 +1,4 @@
-import * as SC from './periodictable.styles'
+import * as SC from './periodic-table.styles'
 import { IAtom } from 'interfaces/atom'
 import Atom from 'components/Atom/atom.component'
 

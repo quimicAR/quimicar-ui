@@ -1,7 +1,7 @@
 import * as SC from './search.styles'
 import { FiSearch } from 'react-icons/fi'
-import { useTheme } from '../../hooks/use-theme'
 import { useState } from 'react'
+import useDarkMode from 'hooks/use-dark-theme'
 
 interface SearchProps {
   placeholder?: string
@@ -11,21 +11,18 @@ const Search: React.FC<SearchProps> = ({
   placeholder = 'Search for elements...',
   value = ''
 }) => {
-  const { theme } = useTheme()
+  const { isDarkMode } = useDarkMode()
   const [searchState, setSearchState] = useState<string>(value)
 
   return (
-    <SC.SearchContainer themeProp={theme}>
+    <SC.SearchContainer isDarkMode={isDarkMode}>
       <SC.Search
         placeholder={placeholder}
         value={searchState}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={(event: any) => setSearchState(event?.target.value)}
       />
-      <FiSearch
-        color={theme === 'light' ? '#040415' : '#f1ebdd'}
-        fontSize="2em"
-      />
+      <FiSearch color={isDarkMode ? '#f1ebdd' : '#040415'} fontSize="2em" />
     </SC.SearchContainer>
   )
 }

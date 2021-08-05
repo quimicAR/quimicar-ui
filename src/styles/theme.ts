@@ -1,14 +1,13 @@
-import { Theme } from 'hooks/use-theme'
 import { DefaultTheme } from 'styled-components'
 
-export const SCTheme = (theme: Theme): DefaultTheme => ({
+export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
   pallete: {
-    bg: theme === 'dark' ? '#181f27' : '#FAF9FA',
+    bg: isDarkMode ? '#181f27' : '#FAF9FA',
     primary: '#00ffff',
     secondary: '#181f27'
   },
   fonts: {
-    color: theme === 'light' ? '#181f27' : '#FAF9FA',
+    color: isDarkMode ? '#FAF9FA' : '#181f27',
     sizes: {
       xsm: '8px',
       sm: '10px',

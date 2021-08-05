@@ -1,4 +1,4 @@
-export const formatCategory = (atomCategory: string): string => {
+export const formatCategory = (atomCategory: string): Category => {
   switch (atomCategory) {
     case 'noble gas':
       return 'nobleGases'
@@ -19,17 +19,16 @@ export const formatCategory = (atomCategory: string): string => {
     case 'diatomic nonmetal':
       return 'nonMetal'
     default:
-      return atomCategory
+      return atomCategory as Category
   }
 }
 
-// noble gas
-// alkali metal
-// alkaline earth metal
-// post-transition metal
-// transition metal
-// polyatomic nonmetal
-// diatomic nonmetal
-// lanthanide
-// actinide
-// metalloid
+export type Category =
+  | 'nobleGases'
+  | 'alkaliMetals'
+  | 'alkalineEarthMetals'
+  | 'postTransitionMetals'
+  | 'transitionMetals'
+  | 'lanthanoids'
+  | 'actinoids'
+  | 'nonMetal'

@@ -1,7 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.main`
-  width: 100%;
-  height: 100%;
-  background-color: ${(props) => props.theme.pallete.bg};
+interface MainStylesProps {
+  isDarkMode: boolean
+}
+
+export const Wrapper = styled.main<MainStylesProps>`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    background-color: ${theme.pallete.bg};
+  `}
 `

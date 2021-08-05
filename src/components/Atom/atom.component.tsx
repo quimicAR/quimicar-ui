@@ -1,5 +1,5 @@
 import { formatCategory } from 'helper/format-category'
-import { useTheme } from 'hooks/use-theme'
+import useDarkMode from 'hooks/use-dark-theme'
 import React from 'react'
 import * as SC from './atom.styles'
 
@@ -21,7 +21,7 @@ const Atom: React.FC<AtomProps> = ({
   atomGroup,
   position: { xPos, yPos }
 }: AtomProps) => {
-  const { theme } = useTheme()
+  const { isDarkMode } = useDarkMode()
   return (
     <SC.AtomContainer
       style={{
@@ -29,7 +29,7 @@ const Atom: React.FC<AtomProps> = ({
         gridColumn: xPos
       }}
       group={formatCategory(atomGroup)}
-      themeProp={theme}
+      isDarkMode={isDarkMode}
     >
       <SC.AtomicNumber>{atomicNumber}</SC.AtomicNumber>
       <SC.AtomSymbol>{atomSymbol}</SC.AtomSymbol>

@@ -1,7 +1,8 @@
 import { useTheme } from '../../hooks/use-theme'
 import * as SC from './header.styles'
-import { FiSun, FiMoon, FiSearch } from 'react-icons/fi'
-import Search from 'components/Search/search.component'
+import { FiSun, FiMoon } from 'react-icons/fi'
+import Search from '../../components/Search/search.component'
+import useDarkMode from 'hooks/use-dark-theme'
 
 interface HeaderProps {
   title?: string
@@ -13,27 +14,28 @@ const iconOptions = {
 }
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
-  const { theme, setTheme } = useTheme()
+  const { toggle, isDarkMode } = useDarkMode()
 
-  const toggleTheme = () =>
-    theme === 'light' ? setTheme('dark') : setTheme('light')
+  const toggleTheme = () => toggle()
   return (
-    <SC.Header theme={theme}>
+    <SC.Header>
       <SC.Box>
-        <SC.Logo
-          src={theme === 'light' ? iconOptions.dark : iconOptions.light}
-          alt="Imagem de um átomo"
-        ></SC.Logo>
-        <SC.Title theme={theme}>{title}</SC.Title>
-        <Search placeholder="Search..." />
+        <SC.Box margin="0px 5em 0px 0px">
+          <SC.Logo
+            src={isDarkMode ? iconOptions.light : iconOptions.dark}
+            alt="Imagem de um átomo"
+          ></SC.Logo>
+          <SC.Title>{title}</SC.Title>
+        </SC.Box>
+        <Search />
       </SC.Box>
 
       <SC.Box>
         <SC.IconButton onClick={() => toggleTheme()}>
-          {theme === 'light' ? (
-            <FiMoon color="#181f27" fontSize="1.5em" />
-          ) : (
+          {isDarkMode ? (
             <FiSun color="#f1ebdd" fontSize="1.5em" />
+          ) : (
+            <FiMoon color="#181f27" fontSize="1.5em" />
           )}
         </SC.IconButton>
       </SC.Box>

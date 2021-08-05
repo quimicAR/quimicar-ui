@@ -1,9 +1,4 @@
-import { Theme } from 'hooks/use-theme'
 import styled, { keyframes } from 'styled-components'
-
-interface HeaderStylesProps {
-  theme: Theme
-}
 
 export const RotateAnimation = keyframes`
    from {
@@ -14,16 +9,15 @@ export const RotateAnimation = keyframes`
 		}
 `
 
-export const Header = styled.header<HeaderStylesProps>`
+export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 55px;
-  padding: 0px 1em;
+  padding: 0px 3em;
   margin-bottom: 2rem;
-  background-color: ${(props) =>
-    props.theme === 'light' ? '#f1ebdd' : '#040415'};
+  background-color: ${(props) => props.theme.pallete.bg};
 `
 
 export const Logo = styled.img`
@@ -34,14 +28,13 @@ export const Logo = styled.img`
   animation-iteration-count: infinite;
   animation-duration: 8s;
   margin-right: 12px;
-  transition: 2.5s; /* Transition duration */
+  transition: 2.5s;
 `
 
-export const Title = styled.h1<HeaderStylesProps>`
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: ${(props) => (props.theme === 'light' ? '#040415' : '#f1ebdd')};
-  margin-right: 5em;
+export const Title = styled.h1`
+  font-size: ${(props) => props.theme.fonts.sizes.lg};
+  font-weight: ${(props) => props.theme.fonts.weight.light};
+  color: ${(props) => props.theme.fonts.color};
 `
 export const IconButton = styled.button`
   height: auto;
@@ -54,7 +47,15 @@ export const IconButton = styled.button`
     cursor: pointer;
   }
 `
-export const Box = styled.div`
+
+interface BoxProps {
+  padding?: string
+  margin?: string
+}
+
+export const Box = styled.div<BoxProps>`
   display: flex;
   align-items: center;
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
 `

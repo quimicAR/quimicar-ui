@@ -13,8 +13,19 @@ export default {
   args: {
     atomSymbol: 'H',
     atomicNumber: 1,
-    atomName: 'Hydrogen'
+    atomName: 'Hydrogen',
+    atomGroup: 'nonMetal',
+    position: { xPos: 1, yPos: 1 }
   }
 } as Meta
 
-export const Default: Story = (args) => <Atom {...args} />
+export const Default: Story = (args) => (
+  <Atom
+    atomGroup="nonMetal"
+    atomName="Hydrogen"
+    atomicNumber={1}
+    atomSymbol="H"
+    position={{ xPos: 1, yPos: 1 }}
+    {...args}
+  />
+)

@@ -1,7 +1,8 @@
-import { formatCategory } from 'helper/format-category'
-import useDarkMode from 'hooks/use-dark-theme'
 import React from 'react'
 import * as SC from './atom.styles'
+import useDarkMode from 'hooks/use-dark-theme'
+import { formatCategory } from 'helper/format-category'
+import Link from 'next/link'
 
 interface AtomProps {
   atomName: string
@@ -23,18 +24,24 @@ const Atom: React.FC<AtomProps> = ({
 }: AtomProps) => {
   const { isDarkMode } = useDarkMode()
   return (
-    <SC.AtomContainer
-      style={{
-        gridRow: yPos,
-        gridColumn: xPos
-      }}
-      group={formatCategory(atomGroup)}
-      isDarkMode={isDarkMode}
+    <Link
+      href={`/?id=${atomicNumber}`}
+      // href={`/elements/[id]?id=${atomicNumber}`}
+      as={`/elements/${atomicNumber}`}
     >
-      <SC.AtomicNumber>{atomicNumber}</SC.AtomicNumber>
-      <SC.AtomSymbol>{atomSymbol}</SC.AtomSymbol>
-      <SC.AtomName>{atomName}</SC.AtomName>
-    </SC.AtomContainer>
+      <SC.AtomContainer
+        style={{
+          gridRow: yPos,
+          gridColumn: xPos
+        }}
+        group={formatCategory(atomGroup)}
+        isDarkMode={isDarkMode}
+      >
+        <SC.AtomicNumber>{atomicNumber}</SC.AtomicNumber>
+        <SC.AtomSymbol>{atomSymbol}</SC.AtomSymbol>
+        <SC.AtomName>{atomName}</SC.AtomName>
+      </SC.AtomContainer>
+    </Link>
   )
 }
 

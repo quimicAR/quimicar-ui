@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const PeriodicTableContainer = styled.div`
   display: grid;
-  grid-auto-rows: minmax(55px, auto);
-  grid-auto-columns: minmax(55px, auto);
-  grid-gap: 5px;
+  grid-auto-rows: minmax(60px, auto);
+  grid-auto-columns: minmax(60px, auto);
+  grid-gap: 6px;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -6,19 +6,24 @@ interface PeriodicTableProps {
   elements: IAtom[]
 }
 
-const PeriodicTable: React.FC<PeriodicTableProps> = ({ elements }) => {
+const PeriodicTable: React.FC<PeriodicTableProps> = ({
+  elements
+}): JSX.Element => {
   return (
     <SC.PeriodicTableContainer>
-      {elements.map(({ id, name, number, symbol, category, xpos, ypos }) => (
-        <Atom
-          key={id}
-          atomName={name}
-          atomSymbol={symbol}
-          atomicNumber={number}
-          atomGroup={category}
-          position={{ xPos: xpos, yPos: ypos }}
-        />
-      ))}
+      {elements.map((element: IAtom) => {
+        const { name, number, symbol, category, xpos, ypos } = element
+        return (
+          <Atom
+            key={name}
+            atomName={name}
+            atomSymbol={symbol}
+            atomicNumber={number}
+            atomGroup={category}
+            position={{ xPos: xpos, yPos: ypos }}
+          />
+        )
+      })}
     </SC.PeriodicTableContainer>
   )
 }

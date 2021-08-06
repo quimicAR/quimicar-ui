@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app'
 import { GlobalStyles } from '../styles/globalStyle'
 import Head from 'next/head'
+import { ThemeProvider } from '../hooks/use-theme'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -30,8 +31,10 @@ function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         ></link>
       </Head>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <ThemeProvider>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }

@@ -2,12 +2,12 @@ import { DefaultTheme } from 'styled-components'
 
 export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
   pallete: {
-    bg: isDarkMode ? '#181f27' : '#FAF9FA',
+    bg: isDarkMode ? 'var(--color-dark)' : 'var(--color-light)',
     primary: '#00ffff',
-    secondary: '#181f27'
+    secondary: 'var(--color-dark)'
   },
   fonts: {
-    color: isDarkMode ? '#FAF9FA' : '#181f27',
+    color: isDarkMode ? 'var(--color-light)' : '#111',
     sizes: {
       xsm: '8px',
       sm: '10px',

@@ -14,15 +14,13 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     width: auto;
     height: auto;
     border-bottom: 3px solid ${theme.elementsGroups[group]};
-    border: ${!isDarkMode ? '1px solid #333' : ''}
     background-color: ${theme.pallete.bg};
-    padding: 4px;
+    padding: 5px;
     transition: ease-in-out 0.4s;
-
     &:hover {
-      background-color: ${
-        isDarkMode ? 'rgba(250,249,250, 0.1)' : 'rgba(24, 31, 39, 0.1)'
-      };
+      background-color: ${isDarkMode
+        ? 'rgba(250,249,250, 0.1)'
+        : 'rgba(24, 31, 39, 0.1)'};
       cursor: pointer;
     }
   `}

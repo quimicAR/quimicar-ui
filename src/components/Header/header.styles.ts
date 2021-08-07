@@ -15,7 +15,7 @@ export const Header = styled.header`
   justify-content: space-between;
   width: 100%;
   height: 55px;
-  padding: 0px 3em;
+  padding: 0px 5em;
   margin-bottom: 2rem;
   background-color: ${(props) => props.theme.pallete.bg};
 `

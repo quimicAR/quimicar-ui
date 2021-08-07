@@ -1,26 +1,31 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-}
+  :root {
+    --color-dark: rgb(20,28,35);
+    --color-light: #faf9fa;
+    --color-primary: rgb(219,44,108);
+    --color-secondary: rgb(57,182,206);
+  }
 
-html, body, main, #__next {
-  height: 100%;
-  width: 100%;
-  font-family: 'Roboto', sans-serif;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+  }
 
-html {
-  font-size: 62.5%; // para usarmos unidade de medida *rem*
-}
+  html,
+  body,
+  main,
+  #__next {
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
 
-body {
-  font-family: 'Roboto', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; // Pega fonts base do sistema
-}
-
+  html {
+    font-size: 62.5%; // para usarmos unidade de medida *rem*
+  }
 `

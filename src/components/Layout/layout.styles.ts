@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-interface MainStylesProps {
+interface LayoutStylesProps {
   isDarkMode: boolean
 }
 
-export const Wrapper = styled.main<MainStylesProps>`
+export const Wrapper = styled.main<LayoutStylesProps>`
   ${({ theme }) => css`
     width: 100%;
     height: 100%;

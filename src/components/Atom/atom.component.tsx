@@ -3,7 +3,6 @@ import * as SC from './atom.styles'
 import useDarkMode from 'hooks/use-dark-theme'
 import { formatCategory } from 'helper/format-category'
 import Link from 'next/link'
-
 interface AtomProps {
   atomName: string
   atomicNumber: number
@@ -23,12 +22,9 @@ const Atom: React.FC<AtomProps> = ({
   position: { xPos, yPos }
 }: AtomProps) => {
   const { isDarkMode } = useDarkMode()
+
   return (
-    <Link
-      href={`/?id=${atomicNumber}`}
-      // href={`/elements/[id]?id=${atomicNumber}`}
-      as={`/elements/${atomicNumber}`}
-    >
+    <Link href="/elements/[id]" as={`/elements/${atomicNumber}`}>
       <SC.AtomContainer
         style={{
           gridRow: yPos,

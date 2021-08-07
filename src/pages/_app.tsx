@@ -5,7 +5,7 @@ import { ThemeProvider } from '../hooks/use-theme'
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <ThemeProvider>
       <Head>
         <title>quimicAR - Átomos em Realidade Aumentada</title>
         <link rel="shortcut icon" href="/img/atom-light.svg" />
@@ -31,11 +31,9 @@ function App({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         ></link>
       </Head>
-      <ThemeProvider>
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </>
+      <GlobalStyles />
+      <Component {...pageProps} />
+    </ThemeProvider>
   )
 }
 

@@ -7,7 +7,7 @@ export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
     secondary: 'var(--color-dark)'
   },
   fonts: {
-    color: isDarkMode ? 'var(--color-light)' : 'var(--color-dark)',
+    color: isDarkMode ? 'var(--color-light)' : '#111',
     sizes: {
       xsm: '8px',
       sm: '10px',

@@ -1,26 +1,36 @@
-import Layout from 'components/Layout/layout.component'
+import { Layout } from 'components'
 import { IAtom } from 'interfaces/atom'
-import { useRouter } from 'next/router'
-import useSWR from 'swr'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { fetcher } from 'services'
 
-const fetchElement = (id: string): Promise<IAtom> =>
-  fetch(`https://quimicar-api.herokuapp.com/elements/${id}`).then((element) =>
-    element.json()
-  )
+export const getStaticPaths: GetStaticPaths = async () => {
+  let size = Array.from(Array(119).keys())
+  size = size.map((size) => size + 1)
 
-const ElementPage = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const { data, error } = useSWR(`${id}`, fetchElement)
+  const paths = size.map((id) => ({
+    params: { id: id.toString() }
+  }))
 
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  return { paths, fallback: false }
+}
 
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params?.id
+
+  const element = await fetcher('/elements/' + id)
+
+  return { props: { element } }
+}
+
+const Element: NextPage<{ element: IAtom }> = ({ element }) => {
   return (
     <Layout>
-      <h1>{data.name}</h1>
-      <h2>{data.summary}</h2>
+      <section>
+        <h1>{element.name}</h1>
+        <p>{element.summary}</p>
+      </section>
     </Layout>
   )
 }
-export default ElementPage
+
+export default Element

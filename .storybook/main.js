@@ -4,6 +4,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-knobs',
-    '@storybook/addon-controls'
+    '@storybook/addon-controls',
+    'storybook-dark-mode/register'
   ]
 }

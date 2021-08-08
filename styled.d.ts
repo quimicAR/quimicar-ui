@@ -9,6 +9,8 @@ declare module 'styled-components' {
         md: string
         lg: string
         xlg: string
+        xxlg: string
+        xxxlg: string
       }
       weight: {
         xlight: number
@@ -23,7 +25,12 @@ declare module 'styled-components' {
       secondary: string
       bg: string
     }
-
+    sizes: {
+      xsm: string
+      sm: string
+      md: string
+      lg: string
+    }
     elementsGroups: {
       alkalineEarthMetals: string
       alkaliMetals: string

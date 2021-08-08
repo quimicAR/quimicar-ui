@@ -8,14 +8,31 @@ export default {
   argTypes: {
     atomSymbol: { control: 'text' },
     atomName: { control: 'text' },
-    atomicNumber: { control: 'number' }
+    atomicNumber: { control: 'number' },
+    atomGroup: {
+      control: { type: 'select' },
+      options: [
+        'nobleGases',
+        'alkaliMetals',
+        'alkalineEarthMetals',
+        'postTransitionMetals',
+        'transitionMetals',
+        'lanthanoids',
+        'actinoids',
+        'nonMetal'
+      ]
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['xsm', 'sm', 'md', 'lg']
+    }
   },
   args: {
     atomSymbol: 'H',
     atomicNumber: 1,
     atomName: 'Hydrogen',
     atomGroup: 'nonMetal',
-    position: { xPos: 1, yPos: 1 }
+    size: 'md'
   }
 } as Meta
 

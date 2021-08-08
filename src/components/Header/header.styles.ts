@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 export const RotateAnimation = keyframes`
    from {
@@ -9,15 +9,22 @@ export const RotateAnimation = keyframes`
 		}
 `
 
-export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 55px;
-  padding: 0px 3em;
-  margin-bottom: 2rem;
-  background-color: ${(props) => props.theme.pallete.bg};
+export const Header = styled.header<{ isDark: boolean }>`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 55px;
+    padding: 0px 4em;
+    margin-bottom: 2rem;
+    background-color: ${theme.pallete.bg};
+    -webkit-box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);
+    -moz-box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);
+    box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);
+  `}
 `
 
 export const Logo = styled.img`

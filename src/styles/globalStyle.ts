@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    --color-dark: rgb(20,28,35);
+    --color-dark: #222;
     --color-light: #faf9fa;
     --color-primary: rgb(219,44,108);
     --color-secondary: rgb(57,182,206);
@@ -26,6 +26,6 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: 62.5%; // para usarmos unidade de medida *rem*
+    font-size: 92.5%; // para usarmos unidade de medida *rem*
   }
 `

@@ -7,7 +7,7 @@ export interface IAtom {
   boil: number
   category: string
   density: number
-  discovered_by: string | null
+  discovered_by: string | string[]
   melt: number
   molar_heat: number
   named_by: string
@@ -25,4 +25,5 @@ export interface IAtom {
   electron_affinity: number
   electronegativity_pauling: number
   ionization_energies: number[] // need to parse
+  element_img: string
 }

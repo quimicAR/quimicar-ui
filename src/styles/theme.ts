@@ -9,18 +9,26 @@ export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
   fonts: {
     color: isDarkMode ? 'var(--color-light)' : '#111',
     sizes: {
-      xsm: '8px',
-      sm: '10px',
-      md: '14px',
-      lg: '18px',
-      xlg: '28px'
+      xsm: '0.5rem',
+      sm: '0.625rem',
+      md: '0.875rem',
+      lg: '1.125rem',
+      xlg: '1.75rem',
+      xxlg: '2.0rem',
+      xxxlg: '2.75rem'
     },
     weight: {
       xlight: 100,
       light: 400,
-      medium: 500,
+      medium: 600,
       bold: 700
     }
+  },
+  sizes: {
+    xsm: '45px',
+    sm: '55px',
+    md: '65px',
+    lg: '75px'
   },
   elementsGroups: {
     alkalineEarthMetals: '#009cc7',

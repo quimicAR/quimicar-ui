@@ -1,7 +1,7 @@
 import * as SC from './header.styles'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import Search from '../../components/Search/search.component'
-import useDarkMode from 'hooks/use-dark-theme'
+import useDarkMode from '../../hooks/use-dark-theme'
 import { useRouter } from 'next/router'
 interface HeaderProps {
   title?: string
@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
   const toggleTheme = () => toggle()
   return (
-    <SC.Header>
+    <SC.Header isDark={isDarkMode}>
       <SC.Box>
         <SC.Box
           margin="0px 5rem 0px 0px"

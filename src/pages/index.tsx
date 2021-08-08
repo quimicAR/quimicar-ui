@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next'
 import { Layout, PeriodicTable } from '../components'
-import { IAtom } from 'interfaces/atom'
+import { IAtom } from 'models/atom'
 import { fetcher } from 'services/'
 
 export const getStaticProps: GetStaticProps = async () => {

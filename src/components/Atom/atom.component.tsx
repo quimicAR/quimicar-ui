@@ -1,8 +1,9 @@
 import React from 'react'
 import * as SC from './atom.styles'
-import useDarkMode from 'hooks/use-dark-theme'
-import { formatCategory } from 'helper/format-category'
+import useDarkMode from '../../hooks/use-dark-theme'
+import { formatCategory } from '../../helper/format-category'
 import Link from 'next/link'
+import { Size } from 'models/styles'
 interface AtomProps {
   atomName: string
   atomicNumber: number
@@ -12,6 +13,7 @@ interface AtomProps {
     xPos: number
     yPos: number
   }
+  size?: Size
 }
 
 const Atom: React.FC<AtomProps> = ({
@@ -19,7 +21,8 @@ const Atom: React.FC<AtomProps> = ({
   atomicNumber,
   atomName,
   atomGroup,
-  position: { xPos, yPos }
+  position: { xPos, yPos },
+  size = 'sm'
 }: AtomProps) => {
   const { isDarkMode } = useDarkMode()
 
@@ -32,10 +35,11 @@ const Atom: React.FC<AtomProps> = ({
         }}
         group={formatCategory(atomGroup)}
         isDarkMode={isDarkMode}
+        size={size}
       >
         <SC.AtomicNumber>{atomicNumber}</SC.AtomicNumber>
         <SC.AtomSymbol>{atomSymbol}</SC.AtomSymbol>
-        <SC.AtomName>{atomName}</SC.AtomName>
+        {size !== 'xsm' && <SC.AtomName>{atomName}</SC.AtomName>}
       </SC.AtomContainer>
     </Link>
   )

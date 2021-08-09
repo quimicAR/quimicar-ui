@@ -3,6 +3,7 @@ import useDarkMode from 'hooks/use-dark-theme'
 import { IAtom } from 'models/atom'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { fetcher } from 'services'
+import Image from 'next/image'
 import { FiFileText, FiInfo } from 'react-icons/fi'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -49,7 +50,12 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
     spectral_img,
     element_img
   } = element
-
+  const imageUrl = (number: number) => {
+    const base = '/static/markers/'
+    const formatedNumber = number <= 9 ? `0${number}` : number
+    const finalUrl = base + formatedNumber + '.png'
+    return finalUrl
+  }
   return (
     <Layout>
       <ElementHeader
@@ -91,7 +97,12 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
           title="Atomic Properties"
         >
           {spectral_img && (
-            <Row text="" title="Spectrum:" imageUrl={spectral_img} />
+            <Row
+              title="Spectrum:"
+              imageUrl={spectral_img}
+              alt="Spectrum image of the element"
+              imgHeight={50}
+            />
           )}
           <Row title="State: " text={phase} />
           {/* Temperatures such as boiling points and melting points are given in
@@ -118,6 +129,28 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
             title="Semantic Electronic Configuration: "
             text={electron_configuration_semantic}
           />
+        </Section>
+        <Section
+          icon={
+            <FiInfo
+              color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
+              fontSize="1.3em"
+              style={{ marginRight: '0.7em' }}
+            />
+          }
+          title="Augmented Reality"
+        >
+          <Row title="See this element in A.R" />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%'
+            }}
+          >
+            <Image src={imageUrl(number)} alt="test" width={450} height={450} />
+          </div>
         </Section>
       </Content>
     </Layout>

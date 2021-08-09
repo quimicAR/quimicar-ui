@@ -4,14 +4,26 @@ import Image from 'next/image'
 import * as SC from './row.styles'
 
 interface RowProps {
-  text: string | number
+  text?: string | number
   title: string
   icon?: ReactElement | ReactNode
   imageUrl?: string
   measure?: string
+  alt?: string
+  imgHeight?: string | number
+  imgWidth?: string | number
 }
 
-const Row: React.FC<RowProps> = ({ text, title, icon, measure, imageUrl }) => {
+const Row: React.FC<RowProps> = ({
+  text,
+  title,
+  icon,
+  measure,
+  imageUrl,
+  alt,
+  imgHeight,
+  imgWidth
+}) => {
   return (
     <SC.RowContainer>
       <Text size="md" weight="bold" color="#818181">
@@ -28,12 +40,12 @@ const Row: React.FC<RowProps> = ({ text, title, icon, measure, imageUrl }) => {
         </Text>
       </div>
 
-      {imageUrl && (
+      {imageUrl && imgHeight && (
         <Image
           src={imageUrl}
-          alt="Spectral image to represent the spectrum about the element"
-          width={120}
-          height={30}
+          alt={alt}
+          width={imgWidth || 'auto'}
+          height={imgHeight}
         />
       )}
     </SC.RowContainer>

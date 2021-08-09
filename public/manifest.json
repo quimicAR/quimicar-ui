@@ -1,8 +1,8 @@
 {
-  "name": "React Avançado - Boilerplate",
-  "short_name": "React Avançado",
+  "name": "quimicAR",
+  "short_name": "quimicAR",
   "background_color": "#06092B",
-  "description": "Boilerlate utilizando Typescript, React, NextJS e Styled Components!",
+  "description": "Interface responsible for displaying the periodic table and markers, which together with the application will display the elements in Augmented Reality ",
   "display": "fullscreen",
   "start_url": "/",
   "theme_color": "#06092B"

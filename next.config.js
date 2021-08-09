@@ -5,6 +5,10 @@
 module.exports = {
   // other next config
   images: {
-    domains: ['upload.wikimedia.org', 'images-of-elements.com']
+    domains: [
+      'upload.wikimedia.org',
+      'images-of-elements.com',
+      'quimicar-api.herokuapp.com'
+    ]
   }
 }

@@ -9,6 +9,8 @@ import Content from './Content/content.component'
 import Section from './Section/section.component'
 import Row from './Row/row.component'
 import ElementHeader from './ElementHeader/element-header.component'
+import Input from './Input/input.component'
+import Button from './Button/button.component'
 
 export {
   Atom,
@@ -21,5 +23,7 @@ export {
   Content,
   Section,
   Row,
-  ElementHeader
+  ElementHeader,
+  Input,
+  Button
 }

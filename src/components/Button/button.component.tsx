@@ -1,5 +1,4 @@
-/* eslint-disable react/display-name */
-import React from 'react'
+import React, { RefObject } from 'react'
 import useDarkMode from '../../hooks/use-dark-theme'
 import * as SC from './button.styles'
 interface ButtonProps {
@@ -30,7 +29,7 @@ const Button: React.FC<ButtonProps> = React.forwardRef((props, ref) => {
       disabled={disabled}
     >
       <SC.Button
-        ref={ref as any}
+        ref={ref as RefObject<HTMLButtonElement>}
         onClick={onClick}
         isLink={isLink}
         color={color}
@@ -42,5 +41,7 @@ const Button: React.FC<ButtonProps> = React.forwardRef((props, ref) => {
     </SC.ButtonContainer>
   )
 })
+
+Button.displayName = 'Button'
 
 export default Button

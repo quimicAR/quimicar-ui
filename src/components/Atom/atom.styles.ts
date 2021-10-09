@@ -26,7 +26,7 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     &:hover {
       background-color: ${isDarkMode
         ? 'rgba(250,249,250, 0.1)'
-        : 'rgba(24, 31, 39, 0.1)'};
+        : 'rgba(24, 31, 39, 0.2)'};
       cursor: pointer;
     }
   `}
@@ -44,7 +44,7 @@ export const AtomName = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.fonts.sizes.sm};
     color: ${theme.fonts.color};
-    font-weight: ${theme.fonts.weight.medium};
+    font-weight: ${theme.fonts.weight.light};
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;

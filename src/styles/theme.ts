@@ -20,7 +20,7 @@ export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
     weight: {
       xlight: 100,
       light: 400,
-      medium: 600,
+      medium: 500,
       bold: 700
     }
   },

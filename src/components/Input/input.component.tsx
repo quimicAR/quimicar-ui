@@ -1,5 +1,4 @@
-/* eslint-disable react/display-name */
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, RefObject } from 'react'
 import * as SC from './input.styles'
 import useDarkMode from '../../hooks/use-dark-theme'
 import { IconType } from 'react-icons'
@@ -28,7 +27,7 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
           onChange={onChange}
           type={type}
           name={name}
-          ref={ref as any}
+          ref={ref as RefObject<HTMLInputElement>}
         />
         {icon && icon}
       </SC.InputContainer>
@@ -41,5 +40,7 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
     </>
   )
 })
+
+Input.displayName = 'Input'
 
 export default Input

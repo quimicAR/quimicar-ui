@@ -1,4 +1,7 @@
-export const fetcher = (path: string) =>
-  fetch(`${process.env.BASE_URL}${path}`)
-    .then((data) => data.json())
-    .catch((error) => console.log('Error' + error))
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_SPRING_URL}`
+})
+
+export default api

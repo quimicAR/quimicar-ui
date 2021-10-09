@@ -2,7 +2,7 @@ import { Content, Layout, Section, Row, ElementHeader } from 'components'
 import useDarkMode from 'hooks/use-dark-theme'
 import { IAtom } from 'models/atom'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { fetcher } from 'services'
+import api from 'services'
 import Image from 'next/image'
 import { FiFileText, FiInfo } from 'react-icons/fi'
 
@@ -20,12 +20,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.id
 
-  const element = await fetcher('/elements/' + id)
+  const { data } = await api.get('/elements/' + id)
 
-  return { props: { element } }
+  return { props: { data } }
 }
 
-const Element: NextPage<{ element: IAtom }> = ({ element }) => {
+const Element: NextPage<{ data: IAtom }> = ({ data }) => {
   const { isDarkMode } = useDarkMode()
   const {
     name,
@@ -49,13 +49,15 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
     phase,
     spectral_img,
     element_img
-  } = element
+  } = data
+
   const imageUrl = (number: number) => {
     const base = '/static/markers/'
     const formatedNumber = number <= 9 ? `0${number}` : number
     const finalUrl = base + formatedNumber + '.png'
     return finalUrl
   }
+
   return (
     <Layout>
       <ElementHeader

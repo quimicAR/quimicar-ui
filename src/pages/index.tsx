@@ -1,26 +1,26 @@
 import { GetStaticProps, NextPage } from 'next'
 import { Layout, PeriodicTable } from '../components'
 import { IAtom } from 'models/atom'
-import { fetcher } from 'services/'
+import api from 'services/'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const elements = await fetcher('/elements')
+  const { data } = await api.get('/elements')
 
-  if (!elements) {
+  if (!data) {
     return {
       notFound: true
     }
   }
 
   return {
-    props: { elements }
+    props: { data }
   }
 }
 
-const Home: NextPage<{ elements: IAtom[] }> = ({ elements }) => {
+const Home: NextPage<{ data: IAtom[] }> = ({ data }) => {
   return (
     <Layout>
-      <PeriodicTable elements={elements} />
+      <PeriodicTable elements={data} />
     </Layout>
   )
 }

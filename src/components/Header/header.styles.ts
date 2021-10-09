@@ -18,7 +18,7 @@ export const Header = styled.header<{ isDark: boolean }>`
     top: 0;
     width: 100%;
     height: 55px;
-    padding: 0px 4em;
+    padding: 0px 1.5em;
     margin-bottom: 2rem;
     background-color: ${theme.pallete.bg};
     -webkit-box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);
@@ -49,6 +49,7 @@ export const IconButton = styled.button`
   border: none;
   background-color: transparent;
   transition: ease-in-out 0.3s;
+  margin: 0px 0.5rem 0px 0.5rem;
   &:hover {
     opacity: 0.5;
     cursor: pointer;

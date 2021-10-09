@@ -19,8 +19,15 @@ export default {
   }
 } as Meta
 
-export const Text: Story = (args) => <Input type="text" {...args} />
+export const Text: Story = (args) => (
+  <Input onChange={() => console.log('test')} type="text" {...args} />
+)
 
 export const Password: Story = (args) => (
-  <Input {...args} type="password" placeholder="Password input" />
+  <Input
+    onChange={() => console.log('test')}
+    {...args}
+    type="password"
+    placeholder="Password input"
+  />
 )

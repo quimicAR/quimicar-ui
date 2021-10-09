@@ -22,7 +22,9 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
       : 'rgba(0, 0, 0, 0.08)'};
     padding: 5px;
     transition: ease-in-out 0.4s;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
     &:hover {
       background-color: ${isDarkMode
         ? 'rgba(250,249,250, 0.1)'
@@ -37,23 +39,19 @@ export const AtomicNumber = styled.h3`
     align-self: flex-end;
     font-size: ${theme.fonts.sizes.sm};
     color: ${theme.fonts.color};
-    font-weight: ${theme.fonts.weight.bold};
+    font-weight: ${theme.fonts.weight.medium};
+  `}
+`
+export const AtomSymbol = styled.h1`
+  ${({ theme }) => css`
+    font-size: ${theme.fonts.sizes.lg};
+    color: ${theme.fonts.color};
+    font-weight: ${theme.fonts.weight.medium};
   `}
 `
 export const AtomName = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.fonts.sizes.sm};
-    color: ${theme.fonts.color};
-    font-weight: ${theme.fonts.weight.light};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-  `}
-`
-
-export const AtomSymbol = styled.h1`
-  ${({ theme }) => css`
-    font-size: ${theme.fonts.sizes.lg};
     color: ${theme.fonts.color};
     font-weight: ${theme.fonts.weight.light};
   `}

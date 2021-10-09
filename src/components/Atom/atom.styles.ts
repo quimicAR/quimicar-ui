@@ -16,11 +16,10 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     width: ${theme.sizes[size]};
     height: ${theme.sizes[size]};
     border-bottom: 3px solid ${theme.elementsGroups[group]};
-    border-radius: 4px;
     background-color: ${isDarkMode
       ? ' rgba(0, 0, 0, 0.1)'
       : 'rgba(0, 0, 0, 0.08)'};
-    padding: 5px;
+    padding: 6px;
     transition: ease-in-out 0.4s;
     overflow: hidden;
     text-overflow: ellipsis;

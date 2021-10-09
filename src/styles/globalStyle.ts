@@ -4,8 +4,10 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --color-dark: #222;
     --color-light: #faf9fa;
+    --color-gray: #666666;
     --color-primary: rgb(219,44,108);
     --color-secondary: rgb(57,182,206);
+    --color-danger: rgb(247,49,92);
   }
 
   * {
@@ -20,9 +22,16 @@ export const GlobalStyles = createGlobalStyle`
   body,
   main,
   #__next {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+    .mb-8 {
+      margin-bottom: 8px;
+    }
+    .mb-16 {
+      margin-bottom: 16px;
+    }
   }
 
   html {

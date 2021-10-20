@@ -2,6 +2,7 @@ import { AppProps } from 'next/app'
 import { GlobalStyles } from '../styles/globalStyle'
 import Head from 'next/head'
 import { ThemeProvider } from '../hooks/use-theme'
+import 'tailwindcss/tailwind.css'
 
 function App({ Component, pageProps }: AppProps) {
   return (

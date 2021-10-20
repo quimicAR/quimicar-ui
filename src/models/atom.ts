@@ -1,5 +1,5 @@
 export interface IAtom {
-  id: number
+  id: string
   name: string
   number: number
   atomic_mass: number
@@ -26,4 +26,5 @@ export interface IAtom {
   electronegativity_pauling: number
   ionization_energies: number[] // need to parse
   element_img: string
+  enabled: boolean
 }

@@ -1,5 +1,5 @@
 import { Category } from 'helper/format-category'
-import { Size } from '../../models/styles'
+import { Size } from '../../styles/styles'
 import styled, { css } from 'styled-components'
 interface AtomContainerStyleProps {
   group: Category

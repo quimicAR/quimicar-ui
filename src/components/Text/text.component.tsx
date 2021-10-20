@@ -1,4 +1,4 @@
-import { TextSize, Weight } from 'models/styles'
+import { TextSize, Weight } from 'styles/styles'
 import * as SC from './text.styles'
 
 interface TextProps {

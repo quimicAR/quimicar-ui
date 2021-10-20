@@ -132,6 +132,7 @@ const Element: NextPage<{ data: IAtom }> = ({ data }) => {
             text={electron_configuration_semantic}
           />
         </Section>
+
         <Section
           icon={
             <FiInfo

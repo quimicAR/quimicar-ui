@@ -11,15 +11,13 @@ export const RotateAnimation = keyframes`
 
 export const Header = styled.header<{ isDark: boolean }>`
   ${({ theme }) => css`
+    grid-area: header;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
-    top: 0;
     width: 100%;
     height: 55px;
     padding: 0px 1.5em;
-    margin-bottom: 2rem;
     background-color: ${theme.pallete.bg};
     -webkit-box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);
     -moz-box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);

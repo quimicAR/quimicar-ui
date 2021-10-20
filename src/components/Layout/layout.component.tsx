@@ -5,12 +5,10 @@ import useDarkMode from '../../hooks/use-dark-theme'
 const Layout: React.FC = ({ children }) => {
   const { isDarkMode } = useDarkMode()
   return (
-    <>
+    <SC.Wrapper isDarkMode={isDarkMode}>
       <Header title="quimicAR" />
-      <SC.Wrapper isDarkMode={isDarkMode}>
-        <SC.Main>{children}</SC.Main>
-      </SC.Wrapper>
-    </>
+      <SC.Main>{children}</SC.Main>
+    </SC.Wrapper>
   )
 }
 

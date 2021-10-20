@@ -12,7 +12,7 @@ export const ElementHeaderContainer = styled.header<StylesProps>`
     display: flex;
     align-items: center;
     width: 100%;
-    height: 450px;
+    height: 350px;
     margin-bottom: 1em;
     background: linear-gradient(
         to bottom,
@@ -42,7 +42,6 @@ export const ElementSymbol = styled.div<StylesProps>`
     height: 140px;
     background-color: ${theme.elementsGroups[group]};
     border-radius: 4px;
-    z-index: 5;
   `}
 `
 export const ElementCategory = styled.div<StylesProps>`
@@ -64,5 +63,4 @@ export const ElementHeaderInfoContainer = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   height: 140px;
-  z-index: 5;
 `

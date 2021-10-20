@@ -3,7 +3,7 @@ import * as SC from './atom.styles'
 import useDarkMode from '../../hooks/use-dark-theme'
 import { formatCategory } from '../../helper/format-category'
 import Link from 'next/link'
-import { Size } from 'models/styles'
+import { Size } from 'styles/styles'
 interface AtomProps {
   atomName: string
   atomicNumber: number

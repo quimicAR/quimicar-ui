@@ -13,8 +13,8 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-    width: ${theme.sizes[size]};
-    height: ${theme.sizes[size]};
+    /* width: ${theme.sizes[size]}; */
+    /* height: ${theme.sizes[size]}; */
     border-bottom: 3px solid ${theme.elementsGroups[group]};
     background-color: ${isDarkMode
       ? ' rgba(0, 0, 0, 0.1)'

@@ -39,7 +39,9 @@ const Atom: React.FC<AtomProps> = ({
       >
         <SC.AtomicNumber>{atomicNumber}</SC.AtomicNumber>
         <SC.AtomSymbol>{atomSymbol}</SC.AtomSymbol>
-        {size !== 'xsm' && <SC.AtomName>{atomName}</SC.AtomName>}
+        {size !== 'xsm' && size !== 'sm' && (
+          <SC.AtomName>{atomName}</SC.AtomName>
+        )}
       </SC.AtomContainer>
     </Link>
   )

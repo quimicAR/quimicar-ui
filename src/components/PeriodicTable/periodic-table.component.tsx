@@ -4,7 +4,7 @@ import { Atom } from '../../components'
 import { Size } from '../../styles/styles'
 interface PeriodicTableProps {
   elements: IAtom[]
-  size?: Size
+  size: Size
 }
 
 const PeriodicTable: React.FC<PeriodicTableProps> = ({
@@ -12,7 +12,7 @@ const PeriodicTable: React.FC<PeriodicTableProps> = ({
   size
 }): JSX.Element => {
   return (
-    <SC.PeriodicTableContainer>
+    <SC.PeriodicTableContainer size={size}>
       {elements.map((element: IAtom) => {
         const { id, name, number, symbol, category, xpos, ypos, enabled } =
           element

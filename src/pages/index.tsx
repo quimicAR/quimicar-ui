@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage<{ data: IAtom[] }> = ({ data }) => {
   return (
     <Layout>
-      <PeriodicTable elements={data} />
+      <PeriodicTable size="md" elements={data} />
     </Layout>
   )
 }

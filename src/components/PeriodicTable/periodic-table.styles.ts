@@ -1,8 +1,15 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { Size } from 'styles/styles'
 
-export const PeriodicTableContainer = styled.div`
-  display: grid;
-  grid-auto-rows: minmax(50px, 60px);
-  grid-auto-columns: minmax(55px, 60px);
-  grid-gap: 4px;
+interface PeriodicTableContainerStyleProps {
+  size: Size
+}
+
+export const PeriodicTableContainer = styled.div<PeriodicTableContainerStyleProps>`
+  ${({ theme, size }) => css`
+    display: grid;
+    grid-auto-rows: minmax(theme.sizes[size], theme.sizes[size]);
+    grid-auto-columns: minmax(theme.sizes[size], theme.sizes[size]);
+    grid-gap: 4px;
+  `}
 `

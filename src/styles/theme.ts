@@ -27,7 +27,7 @@ export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
   sizes: {
     xsm: '45px',
     sm: '55px',
-    md: '65px',
+    md: '60px',
     lg: '75px'
   },
   elementsGroups: {

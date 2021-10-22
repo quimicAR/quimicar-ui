@@ -15,11 +15,11 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     justify-content: space-between;
     width: ${theme.sizes[size]};
     height: ${theme.sizes[size]};
-    border-bottom: 3px solid ${theme.elementsGroups[group]};
+    border-bottom: 2px solid ${theme.elementsGroups[group]};
     background-color: ${isDarkMode
-      ? ' rgba(0, 0, 0, 0.1)'
+      ? ' rgba(100, 100, 100, 0.08)'
       : 'rgba(0, 0, 0, 0.08)'};
-    padding: 6px;
+    padding: 3px;
     transition: ease-in-out 0.4s;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -27,31 +27,8 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     &:hover {
       background-color: ${isDarkMode
         ? 'rgba(250,249,250, 0.1)'
-        : 'rgba(24, 31, 39, 0.2)'};
+        : 'rgba(24, 31, 39, 0.1)'};
       cursor: pointer;
     }
-  `}
-`
-
-export const AtomicNumber = styled.h3`
-  ${({ theme }) => css`
-    align-self: flex-end;
-    font-size: ${theme.fonts.sizes.sm};
-    color: ${theme.fonts.color};
-    font-weight: ${theme.fonts.weight.medium};
-  `}
-`
-export const AtomSymbol = styled.h1`
-  ${({ theme }) => css`
-    font-size: ${theme.fonts.sizes.lg};
-    color: ${theme.fonts.color};
-    font-weight: ${theme.fonts.weight.medium};
-  `}
-`
-export const AtomName = styled.p`
-  ${({ theme }) => css`
-    font-size: ${theme.fonts.sizes.sm};
-    color: ${theme.fonts.color};
-    font-weight: ${theme.fonts.weight.light};
   `}
 `

@@ -1,5 +1,6 @@
 import { GetStaticProps, NextPage } from 'next'
-import { Layout, PeriodicTable } from '../components'
+import { PeriodicTable } from '../components'
+import { Base } from 'layouts'
 import { IAtom } from 'models/atom'
 import api from 'services/'
 
@@ -19,9 +20,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<{ data: IAtom[] }> = ({ data }) => {
   return (
-    <Layout>
+    <Base>
       <PeriodicTable size="md" elements={data} />
-    </Layout>
+    </Base>
   )
 }
 

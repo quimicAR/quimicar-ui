@@ -2,6 +2,8 @@ import * as SC from './header.styles'
 import { FiSun, FiMoon, FiUser } from 'react-icons/fi'
 import useDarkMode from '../../hooks/use-dark-theme'
 import { useRouter } from 'next/router'
+import { Text } from 'components'
+
 interface HeaderProps {
   title?: string
 }
@@ -17,17 +19,14 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
   return (
     <SC.Header isDark={isDarkMode}>
-      <SC.Box>
-        <SC.Box onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>
-          <SC.Logo
-            src={isDarkMode ? iconOptions.light : iconOptions.dark}
-            alt="Imagem de um átomo"
-          ></SC.Logo>
-          <SC.Title>{title}</SC.Title>
-        </SC.Box>
-      </SC.Box>
-
-      <SC.Box>
+      <div className="cursor-pointer flex" onClick={() => router.push('/')}>
+        <SC.Logo
+          src={isDarkMode ? iconOptions.light : iconOptions.dark}
+          alt="Imagem de um átomo"
+        ></SC.Logo>
+        <Text size="lg">{title}</Text>
+      </div>
+      <div className="flex">
         <SC.IconButton onClick={() => toggleTheme()}>
           {isDarkMode ? (
             <FiSun color="var(--color-light)" fontSize="1.5em" />
@@ -42,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
             <FiUser color="var(--color-dark)" fontSize="1.5em" />
           )}
         </SC.IconButton>
-      </SC.Box>
+      </div>
     </SC.Header>
   )
 }

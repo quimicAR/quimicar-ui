@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
   const { isDarkMode } = useDarkMode()
 
   return (
-    <>
+    <div className="flex flex-col w-full">
       <SC.InputContainer isDarkMode={isDarkMode}>
         <SC.Input
           placeholder={placeholder}
@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
           {error?.message}
         </SC.InputError>
       )}
-    </>
+    </div>
   )
 })
 

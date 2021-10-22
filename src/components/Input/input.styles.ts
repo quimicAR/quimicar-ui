@@ -8,8 +8,8 @@ export const InputContainer = styled.div<InputProps>`
   ${({ isDarkMode }) => css`
     display: flex;
     align-items: center;
-    height: 35px;
-    width: 230px;
+    height: 50px;
+    width: 100%;
     background-color: ${isDarkMode
       ? 'rgba(250,249,250, 0.1)'
       : 'rgba(24, 31, 39, 0.1)'};
@@ -21,7 +21,7 @@ export const InputContainer = styled.div<InputProps>`
 export const Input = styled.input`
   ${({ theme }) => css`
     height: 100%;
-    width: auto;
+    width: 95%;
     padding: 10px;
     border: none;
     background: transparent;

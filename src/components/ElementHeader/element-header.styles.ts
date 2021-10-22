@@ -26,7 +26,6 @@ export const ElementHeaderContainer = styled.header<StylesProps>`
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 4px;
-    padding: 2em;
   `}
 `
 
@@ -56,11 +55,4 @@ export const ElementCategory = styled.div<StylesProps>`
     align-self: flex-start;
     border-radius: 5px;
   `}
-`
-
-export const ElementHeaderInfoContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 140px;
 `

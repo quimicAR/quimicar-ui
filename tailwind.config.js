@@ -6,12 +6,23 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      primary: '#202225',
-      secondary: '#5865f2',
-      gray: colors.trueGray,
-      blue: colors.lightBlue,
+      primary: '#60A5FA',
+      secondary: '#1C1E21',
+      gray: {
+        900: '#202225',
+        800: '#4C4E50',
+        700: '#626466',
+        600: '#797A7C',
+        500: '#8F9092',
+        400: '#A5A6A7',
+        300: '#BCBCBD',
+        200: '#D2D2D3',
+        100: '#E8E8E9'
+      },
+      blue: colors.sky,
       red: colors.rose,
-      pink: colors.fuchsia
+      pink: colors.fuchsia,
+      green: colors.green
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
@@ -24,6 +35,9 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '2rem'
+      },
+      animation: {
+        'spin-slow': 'spin 5s linear infinite'
       }
     }
   },

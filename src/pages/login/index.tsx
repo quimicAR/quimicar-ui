@@ -1,14 +1,14 @@
 import { NextPage } from 'next'
-import { Grid } from '@material-ui/core'
-import { Button, Input, Layout, Text } from 'components'
+import { Button, Input, Text } from 'components'
 import useDarkMode from 'hooks/use-dark-theme'
-import { FiLock, FiAtSign } from 'react-icons/fi'
+import { FiLock, FiAtSign, FiUnlock } from 'react-icons/fi'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import api from 'services'
 import Swal from 'sweetalert2'
+import { Base } from 'layouts'
 
 interface FormData {
   email: string
@@ -17,6 +17,8 @@ interface FormData {
 
 const Login: NextPage = () => {
   const { isDarkMode } = useDarkMode()
+  const router = useRouter()
+
   const schema = yup.object({
     email: yup
       .string()
@@ -33,19 +35,16 @@ const Login: NextPage = () => {
     resolver: yupResolver(schema)
   })
 
-  const router = useRouter()
-
   const handleLoginClick: SubmitHandler<FormData> = ({ email, password }) => {
-    console.log('LOGIN -->', { email, password })
     api
       .post('/login', {
         email,
         password
       })
       .then((response) => {
-        console.log('RESPONSE -->', response)
+        const { data, status } = response
         reset()
-        if (response.status === 200) {
+        if (status === 201) {
           router.push('/')
           Swal.fire('Success!', 'Logged in!', 'success')
         }
@@ -56,60 +55,47 @@ const Login: NextPage = () => {
   }
 
   return (
-    <Layout>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="center"
-        className="mb-16"
-      >
-        <Grid item>
-          <Text size="xlg">Login</Text>
-        </Grid>
-      </Grid>
-      <Grid container direction="column" alignContent="center" spacing={1}>
-        <Grid item>
-          <Input
-            placeholder="E-mail"
-            type="email"
-            error={formState.errors.email}
-            icon={
-              <FiAtSign
-                color={isDarkMode ? 'var(--color-gray)' : 'var(--color-dark)'}
-                fontSize="1.3em"
-              />
-            }
-            {...register('email')}
-          />
-        </Grid>
-        <Grid item>
-          <Input
-            placeholder="Password "
-            type="password"
-            error={formState.errors.password}
-            icon={
-              <FiLock
-                color={isDarkMode ? 'var(--color-gray)' : 'var(--color-dark)'}
-                fontSize="1.3em"
-              />
-            }
-            {...register('password')}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            label="Login"
-            onClick={handleSubmit(handleLoginClick)}
-            disabled={!formState.isValid}
-          />
-          <Button
-            label="Create account"
-            isLink
-            onClick={() => router.push('/register')}
-          />
-        </Grid>
-      </Grid>
-    </Layout>
+    <Base>
+      <div className="container rounded p-8 items-center sm:w-6/12 md:w-6/12 lg:w-4/12 flex xl:w-3/12 flex-col gap-2 text-center">
+        <div className="mb-8">
+          <Text size="xlg">Sign-in</Text>
+        </div>
+        <Input
+          placeholder="E-mail"
+          type="email"
+          error={formState.errors.email}
+          icon={
+            <FiAtSign
+              color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
+              fontSize="1.3em"
+            />
+          }
+          {...register('email')}
+        />
+        <Input
+          placeholder="Password "
+          type="password"
+          error={formState.errors.password}
+          icon={
+            <FiLock
+              color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
+              fontSize="1.3em"
+            />
+          }
+          {...register('password')}
+        />
+        <Button
+          label="Login"
+          onClick={handleSubmit(handleLoginClick)}
+          disabled={!formState.isValid}
+        />
+        <Button
+          label="Create account"
+          isLink
+          onClick={() => router.push('/register')}
+        />
+      </div>
+    </Base>
   )
 }
 

@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { Button, Input, Text } from 'components'
 import useDarkMode from 'hooks/use-dark-theme'
-import { FiLock, FiAtSign, FiUnlock } from 'react-icons/fi'
+import { FiLock, FiAtSign } from 'react-icons/fi'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { SubmitHandler, useForm } from 'react-hook-form'

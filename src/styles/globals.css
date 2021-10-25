@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .sidebar-button {
+    @apply relative flex flex-col items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto shadow-lg cursor-pointer  rounded-3xl hover:bg-primary transition-all duration-300 ease-linear;
+  }
+
+  .sidebar-tooltip {
+    @apply absolute w-auto p-4 m-2 min-w-max left-14 rounded-md shadow-md text-gray-100 bg-gray-900 text-xs font-bold transition-all duration-100 origin-left transform-gpu scale-0;
+  }
+
+  .table-head {
+   @apply px-6 py-3 text-xs font-medium uppercase tracking-wider
+  }
+
+  .table-data {
+    @apply px-6 py-4 whitespace-nowrap
+  }
+}

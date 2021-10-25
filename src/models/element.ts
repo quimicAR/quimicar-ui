@@ -1,4 +1,4 @@
-export interface IAtom {
+export interface IElement {
   id: string
   name: string
   number: number

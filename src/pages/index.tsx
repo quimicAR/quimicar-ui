@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from 'next'
 import { PeriodicTable } from '../components'
 import { Base } from 'layouts'
-import { IAtom } from 'models/atom'
+import { IElement } from 'models/atom'
 import api from 'services/'
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -18,7 +18,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-const Home: NextPage<{ data: IAtom[] }> = ({ data }) => {
+const Home: NextPage<{ data: IElement[] }> = ({ data }) => {
   return (
     <Base>
       <PeriodicTable size="md" elements={data} />

@@ -1,15 +1,11 @@
-import * as SC from './base.styles'
-import { Header } from '../../components'
-import useDarkMode from '../../hooks/use-dark-theme'
+import { useState } from 'react'
+import Admin from 'layouts/Admin/admin.component'
+import User from 'layouts/User/user.component'
 
 const Base: React.FC = ({ children }) => {
-  const { isDarkMode } = useDarkMode()
-  return (
-    <SC.Wrapper isDarkMode={isDarkMode}>
-      <Header title="quimicAR" />
-      <SC.Main>{children}</SC.Main>
-    </SC.Wrapper>
-  )
+  const [auth, setAuth] = useState(true)
+
+  return <>{auth ? <Admin>{children}</Admin> : <User>{children}</User>}</>
 }
 
 export default Base

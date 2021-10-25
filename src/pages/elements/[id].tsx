@@ -1,6 +1,6 @@
-import { Content, Section, Row, ElementHeader } from 'components'
+import { Section, Row, ElementHeader } from 'components'
 import useDarkMode from 'hooks/use-dark-theme'
-import { IAtom } from 'models/atom'
+import { IElement } from 'models/element'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import api from 'services'
 import Image from 'next/image'
@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return { props: { data } }
 }
 
-const Element: NextPage<{ data: IAtom }> = ({ data }) => {
+const Element: NextPage<{ data: IElement }> = ({ data }) => {
   const { isDarkMode } = useDarkMode()
   const {
     name,
@@ -70,7 +70,7 @@ const Element: NextPage<{ data: IAtom }> = ({ data }) => {
           number={number}
           symbol={symbol}
         />
-        <Content>
+        <div className="flex flex-col">
           <Section
             icon={
               <FiFileText
@@ -161,7 +161,7 @@ const Element: NextPage<{ data: IAtom }> = ({ data }) => {
               />
             </div>
           </Section>
-        </Content>
+        </div>
       </div>
     </Base>
   )

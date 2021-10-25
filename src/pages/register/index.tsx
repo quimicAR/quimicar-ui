@@ -10,6 +10,7 @@ import api from 'services'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
 import { Base } from 'layouts'
+import { createUser } from 'services/users/create'
 
 interface FormData {
   firstname: string
@@ -52,13 +53,12 @@ const Register: NextPage = () => {
   const router = useRouter()
 
   const handleOnSubmit: SubmitHandler<FormData> = (formValues) => {
-    api
-      .post('/register', {
-        fullname: `${formValues.firstname} ${formValues.lastname}`,
-        email: formValues.email,
-        password: formValues.password,
-        enabled: true
-      })
+    createUser({
+      fullname: `${formValues.firstname} ${formValues.lastname}`,
+      email: formValues.email,
+      password: formValues.password,
+      enabled: true
+    })
       .then((response) => {
         if (response.status === 201) {
           reset()

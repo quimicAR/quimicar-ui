@@ -6,6 +6,7 @@ import { Text } from 'components'
 
 interface HeaderProps {
   title?: string
+  showTitle?: boolean
 }
 
 const iconOptions = {
@@ -13,33 +14,38 @@ const iconOptions = {
   dark: '/img/atom-dark.svg'
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
   const router = useRouter()
   const { toggleTheme, isDarkMode } = useDarkMode()
+  const iconColor = isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'
 
   return (
-    <SC.Header isDark={isDarkMode}>
-      <div className="cursor-pointer flex" onClick={() => router.push('/')}>
-        <SC.Logo
-          src={isDarkMode ? iconOptions.light : iconOptions.dark}
-          alt="Imagem de um átomo"
-        ></SC.Logo>
-        <Text size="lg">{title}</Text>
+    <SC.Header
+      style={{ gridArea: 'header' }}
+      className={isDarkMode ? 'bg-gray-900' : 'bg-opacity-100'}
+    >
+      <div>
+        {showTitle && (
+          <div className="cursor-pointer flex" onClick={() => router.push('/')}>
+            <img
+              className="w-6 h-6 animate-spin-slow mr-3 transition duration-300"
+              src={isDarkMode ? iconOptions.light : iconOptions.dark}
+              alt="Imagem de um átomo"
+            />
+            <Text size="lg">{title}</Text>
+          </div>
+        )}
       </div>
       <div className="flex">
         <SC.IconButton onClick={() => toggleTheme()}>
           {isDarkMode ? (
-            <FiSun color="var(--color-light)" fontSize="1.5em" />
+            <FiSun color="var(--color-light)" fontSize="1.2em" />
           ) : (
-            <FiMoon color="var(--color-dark)" fontSize="1.5em" />
+            <FiMoon color="var(--color-dark)" fontSize="1.2em" />
           )}
         </SC.IconButton>
         <SC.IconButton onClick={() => router.push('/login')}>
-          {isDarkMode ? (
-            <FiUser color="var(--color-light)" fontSize="1.5em" />
-          ) : (
-            <FiUser color="var(--color-dark)" fontSize="1.5em" />
-          )}
+          <FiUser color={iconColor} fontSize="1.2em" />
         </SC.IconButton>
       </div>
     </SC.Header>

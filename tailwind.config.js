@@ -22,7 +22,8 @@ module.exports = {
       blue: colors.sky,
       red: colors.rose,
       pink: colors.fuchsia,
-      green: colors.green
+      green: colors.green,
+      white: colors.white
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
@@ -44,7 +45,9 @@ module.exports = {
   variants: {
     extend: {
       borderColor: ['focus-visible'],
-      opacity: ['disabled']
+      opacity: ['disabled'],
+      scale: ['group-hover'],
+      rounded: ['hover']
     }
   },
   plugins: []

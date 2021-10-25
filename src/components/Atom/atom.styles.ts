@@ -18,8 +18,9 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     border-bottom: 2px solid ${theme.elementsGroups[group]};
     background-color: ${isDarkMode
       ? ' rgba(100, 100, 100, 0.08)'
-      : 'rgba(0, 0, 0, 0.08)'};
+      : 'rgba(30, 30, 30, 0.03)'};
     padding: 3px;
+    border-radius: 3px;
     transition: ease-in-out 0.4s;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -27,7 +28,7 @@ export const AtomContainer = styled.a<AtomContainerStyleProps>`
     &:hover {
       background-color: ${isDarkMode
         ? 'rgba(250,249,250, 0.1)'
-        : 'rgba(24, 31, 39, 0.1)'};
+        : 'rgba(32, 31, 32, 0.1)'};
       cursor: pointer;
     }
   `}

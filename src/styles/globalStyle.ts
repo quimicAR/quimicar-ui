@@ -31,8 +31,12 @@ export const GlobalStyles = createGlobalStyle`
       margin-bottom: 16px;
     }
   }
+  .swal2-shown .swal2-height-auto {
+      height: 100% !important;
+  }
 
   html {
     font-size: 92.5%; // para usarmos unidade de medida *rem*
+
   }
 `

@@ -1,9 +1,9 @@
 import * as SC from './periodic-table.styles'
-import { IAtom } from '../../models/atom'
+import { IElement } from '../../models/element'
 import { Atom } from '../../components'
 import { Size } from '../../styles/styles'
 interface PeriodicTableProps {
-  elements: IAtom[]
+  elements: IElement[]
   size: Size
 }
 
@@ -13,7 +13,7 @@ const PeriodicTable: React.FC<PeriodicTableProps> = ({
 }): JSX.Element => {
   return (
     <SC.PeriodicTableContainer size={size}>
-      {elements.map((element: IAtom) => {
+      {elements.map((element: IElement) => {
         const { id, name, number, symbol, category, xpos, ypos, enabled } =
           element
         if (enabled)

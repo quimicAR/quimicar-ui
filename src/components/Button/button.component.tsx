@@ -1,4 +1,5 @@
 import React, { RefObject } from 'react'
+import { IconType } from 'react-icons'
 import useDarkMode from '../../hooks/use-dark-theme'
 import * as SC from './button.styles'
 interface ButtonProps {
@@ -9,10 +10,12 @@ interface ButtonProps {
   disabled?: boolean
   type?: 'button' | 'reset' | 'submit'
   className?: string
+  icon?: IconType | JSX.Element
 }
 
 const Button: React.FC<ButtonProps> = React.forwardRef((props, ref) => {
-  const { onClick, label, color, isLink, disabled, type, className } = props
+  const { onClick, label, color, isLink, disabled, type, className, icon } =
+    props
   const { isDarkMode } = useDarkMode()
 
   return (
@@ -24,8 +27,9 @@ const Button: React.FC<ButtonProps> = React.forwardRef((props, ref) => {
       color={color}
       disabled={disabled}
       type={type}
-      className={className}
+      className={className || 'w-full'}
     >
+      {icon && icon}
       {label}
     </SC.Button>
   )

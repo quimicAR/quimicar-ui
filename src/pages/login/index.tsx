@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextPage } from 'next'
 import { Button, Input, Text } from 'components'
 import useDarkMode from 'hooks/use-dark-theme'
@@ -6,9 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import api from 'services'
 import Swal from 'sweetalert2'
-import { Base } from 'layouts'
+import { useContext } from 'react'
+import { AuthContext } from 'contexts/auth-context'
 
 interface FormData {
   email: string
@@ -18,6 +19,7 @@ interface FormData {
 const Login: NextPage = () => {
   const { isDarkMode } = useDarkMode()
   const router = useRouter()
+  const { setAuthenticated } = useContext(AuthContext)
 
   const schema = yup.object({
     email: yup
@@ -35,67 +37,61 @@ const Login: NextPage = () => {
     resolver: yupResolver(schema)
   })
 
-  const handleLoginClick: SubmitHandler<FormData> = ({ email, password }) => {
-    api
-      .post('/login', {
+  const handleLoginClick: SubmitHandler<FormData> = async ({
+    email,
+    password
+  }) => {
+    try {
+      await setAuthenticated({
         email,
         password
       })
-      .then((response) => {
-        const { data, status } = response
-        reset()
-        if (status === 201) {
-          router.push('/')
-          Swal.fire('Success!', 'Logged in!', 'success')
-        }
-      })
-      .catch((error) => {
-        Swal.fire('Error', `Error to login! <br> ${error}`, 'error')
-      })
+      Swal.fire('Success!', 'Logged in!', 'success')
+    } catch (error: any) {
+      Swal.fire('Error', `Error to login! <br> ${error.message}`, 'error')
+    }
   }
 
   return (
-    <Base>
-      <div className="container rounded p-8 items-center sm:w-6/12 md:w-6/12 lg:w-4/12 flex xl:w-3/12 flex-col gap-2 text-center">
-        <div className="mb-8">
-          <Text size="xlg">Sign-in</Text>
-        </div>
-        <Input
-          placeholder="E-mail"
-          type="email"
-          error={formState.errors.email}
-          icon={
-            <FiAtSign
-              color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
-              fontSize="1.3em"
-            />
-          }
-          {...register('email')}
-        />
-        <Input
-          placeholder="Password "
-          type="password"
-          error={formState.errors.password}
-          icon={
-            <FiLock
-              color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
-              fontSize="1.3em"
-            />
-          }
-          {...register('password')}
-        />
-        <Button
-          label="Login"
-          onClick={handleSubmit(handleLoginClick)}
-          disabled={!formState.isValid}
-        />
-        <Button
-          label="Create account"
-          isLink
-          onClick={() => router.push('/register')}
-        />
+    <div className="container rounded p-8 items-center sm:w-6/12 md:w-6/12 lg:w-4/12 flex xl:w-3/12 flex-col gap-2 text-center">
+      <div className="mb-8">
+        <Text size="xlg">Sign-in</Text>
       </div>
-    </Base>
+      <Input
+        placeholder="E-mail"
+        type="email"
+        error={formState.errors.email}
+        icon={
+          <FiAtSign
+            color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
+            fontSize="1.3em"
+          />
+        }
+        {...register('email')}
+      />
+      <Input
+        placeholder="Password "
+        type="password"
+        error={formState.errors.password}
+        icon={
+          <FiLock
+            color={isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'}
+            fontSize="1.3em"
+          />
+        }
+        {...register('password')}
+      />
+      <Button
+        label="Login"
+        onClick={handleSubmit(handleLoginClick)}
+        disabled={!formState.isValid}
+      />
+      <Button
+        label="Create account"
+        isLink
+        onClick={() => router.push('/register')}
+      />
+    </div>
   )
 }
 

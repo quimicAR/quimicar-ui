@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useContext, useEffect } from 'react'
 import Admin from 'layouts/Admin/admin.component'
 import User from 'layouts/User/user.component'
+import { AuthContext } from 'contexts/auth-context'
 
 const Base: React.FC = ({ children }) => {
-  const [auth, setAuth] = useState(true)
+  const { isAdmin } = useContext(AuthContext)
 
-  return <>{auth ? <Admin>{children}</Admin> : <User>{children}</User>}</>
+  useEffect(() => {}, [isAdmin])
+
+  return <>{isAdmin ? <Admin>{children}</Admin> : <User>{children}</User>}</>
 }
 
 export default Base

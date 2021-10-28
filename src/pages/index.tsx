@@ -1,11 +1,10 @@
 import { GetStaticProps, NextPage } from 'next'
 import { PeriodicTable } from '../components'
-import { Base } from 'layouts'
-import { IElement } from 'models/atom'
-import api from 'services/'
+import { IElement } from 'models/element'
+import { getAllElements } from 'services/elements/get-all'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get('/elements')
+  const { data } = await getAllElements()
 
   if (!data) {
     return {
@@ -19,11 +18,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home: NextPage<{ data: IElement[] }> = ({ data }) => {
-  return (
-    <Base>
-      <PeriodicTable size="md" elements={data} />
-    </Base>
-  )
+  return <PeriodicTable size="md" elements={data} />
 }
 
 export default Home

@@ -1,4 +1,6 @@
+import { AxiosResponse } from 'axios'
 import { isUndefined } from 'lodash'
+import { IUser } from 'models/user'
 import api from 'services'
 
 interface GetAllUsersProps {
@@ -6,7 +8,10 @@ interface GetAllUsersProps {
   role?: string
 }
 
-export const getAllUsers = async ({ email, role }: GetAllUsersProps) => {
+export const getAllUsers = async ({
+  email,
+  role
+}: GetAllUsersProps): Promise<AxiosResponse<IUser[]>> => {
   let query = ''
 
   if (!isUndefined(email) || !isUndefined(role))

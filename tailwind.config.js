@@ -38,7 +38,7 @@ module.exports = {
         '4xl': '2rem'
       },
       animation: {
-        'spin-slow': 'spin 5s linear infinite'
+        'spin-slow': 'spin 7s linear infinite'
       }
     }
   },
@@ -47,7 +47,7 @@ module.exports = {
       borderColor: ['focus-visible'],
       opacity: ['disabled'],
       scale: ['group-hover'],
-      rounded: ['hover']
+      width: ['responsive', 'hover', 'focus']
     }
   },
   plugins: []

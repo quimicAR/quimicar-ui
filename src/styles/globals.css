@@ -4,7 +4,7 @@
 
 @layer components {
   .sidebar-button {
-    @apply relative flex flex-col items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto shadow-lg cursor-pointer  rounded-3xl hover:bg-primary transition-all duration-300 ease-linear;
+    @apply relative flex items-center justify-center h-auto w-full mt-2 mb-2 mx-auto  cursor-pointer  hover:bg-primary transition-all duration-300 ease-linear;
   }
 
   .sidebar-tooltip {
@@ -17,5 +17,9 @@
 
   .table-data {
     @apply px-6 py-4 whitespace-nowrap
+  }
+
+  .sidebar-animation {
+    @apply transform-gpu transition-all duration-500
   }
 }

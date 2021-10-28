@@ -29,8 +29,6 @@ const List: React.FC<ListProps> = ({
 
   const iconColor = isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'
 
-  useEffect(() => {}, [rows])
-
   return (
     <div className="flex flex-col w-11/12 h-full items-centers">
       {/* HEADER / BREADCRUMB */}

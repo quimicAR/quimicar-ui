@@ -3,9 +3,9 @@ import { AxiosError } from 'axios'
 import { Input } from 'components'
 import Modal from 'components/Modal/modal.component'
 import useDarkMode from 'hooks/use-dark-theme'
-import { Base, List } from 'layouts'
+import { List } from 'layouts'
 import { IUser } from 'models/user'
-import { GetStaticProps, NextPage } from 'next'
+import { GetServerSideProps, GetStaticProps, NextPage } from 'next'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
@@ -18,12 +18,9 @@ import {
 } from 'services/users'
 import Swal from 'sweetalert2'
 import * as yup from 'yup'
-
-export const getStaticProps: GetStaticProps = async () => {
-  const usersProps = await getAllUsers({})
-
-  return { props: { usersProps: usersProps.data } }
-}
+import { parseCookies } from 'nookies'
+import getAPIClient from 'services/auth/api-ssr'
+import { IRole } from 'models/role'
 
 const headers = [
   {
@@ -56,11 +53,14 @@ interface FormData {
   enabled: boolean
 }
 
-const Users: NextPage<{ usersProps: IUser[] }> = ({ usersProps }) => {
+const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
+  data
+}) => {
   const { isDarkMode } = useDarkMode()
   const [search, setSearch] = useState('')
   const [openModal, setOpenModal] = useState(false)
-  const [users, setUsers] = useState<IUser[]>(usersProps)
+  const [users, setUsers] = useState<IUser[]>(data.users)
+  const [roles, setRoles] = useState<IRole[]>(data.roles)
   const [modalType, setModalType] = useState<'edit' | 'new'>()
   const [userId, setUserId] = useState('')
 
@@ -212,57 +212,55 @@ const Users: NextPage<{ usersProps: IUser[] }> = ({ usersProps }) => {
 
   return (
     <>
-      <Base>
-        <List
-          title="Users"
-          headers={headers}
-          onChangeSearch={(search) => setSearch(search)}
-          handleSearch={handleSearchUsers}
-          handleCreate={() => {
-            setModalType('new')
-            setOpenModal(true)
-          }}
-          rows={users.map((user) => ({
-            ...user,
-            enabled: () => (
-              <span
-                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                  user.enabled
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
-                }`}
+      <List
+        title="Users"
+        headers={headers}
+        onChangeSearch={(search) => setSearch(search)}
+        handleSearch={handleSearchUsers}
+        handleCreate={() => {
+          setModalType('new')
+          setOpenModal(true)
+        }}
+        rows={users.map((user) => ({
+          ...user,
+          enabled: () => (
+            <span
+              className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                user.enabled
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
+              }`}
+            >
+              {user.enabled ? 'Active' : 'Disabled'}
+            </span>
+          ),
+          role: () => user.role.name,
+          actions: () => (
+            <div className="flex gap-4  justify-end">
+              <button
+                onClick={() => {
+                  setModalType('edit')
+                  handleEdit(user.id)
+                }}
               >
-                {user.enabled ? 'Active' : 'Disabled'}
-              </span>
-            ),
-            role: () => user.role.name,
-            actions: () => (
-              <div className="flex gap-4  justify-end">
-                <button
-                  onClick={() => {
-                    setModalType('edit')
-                    handleEdit(user.id)
-                  }}
-                >
-                  <FiEdit2
-                    className={`${
-                      isDarkMode ? 'text-gray-100' : 'text-gray-900'
-                    }`}
-                  />
-                </button>
+                <FiEdit2
+                  className={`${
+                    isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                  }`}
+                />
+              </button>
 
-                <button onClick={() => handleDelete(user.id)}>
-                  <FiTrash
-                    className={`${
-                      isDarkMode ? 'text-gray-100' : 'text-gray-900'
-                    }`}
-                  />
-                </button>
-              </div>
-            )
-          }))}
-        />
-      </Base>
+              <button onClick={() => handleDelete(user.id)}>
+                <FiTrash
+                  className={`${
+                    isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                  }`}
+                />
+              </button>
+            </div>
+          )
+        }))}
+      />
 
       {openModal && (
         <Modal
@@ -311,16 +309,10 @@ const Users: NextPage<{ usersProps: IUser[] }> = ({ usersProps }) => {
               placeholder="Roles"
               type="select"
               label="Role"
-              options={[
-                {
-                  id: '666b96ba-b747-4659-bf58-513c21b8d250',
-                  name: 'ROLE_USER'
-                },
-                {
-                  id: '8f26a4df-a42d-44fe-af0a-c25810eb8eea',
-                  name: 'ROLE_ADMIN'
-                }
-              ]}
+              options={roles.map((role) => ({
+                id: role.role_id,
+                name: role.name
+              }))}
               {...register('role')}
             />
             <Input type="checkbox" label="Enabled" {...register('enabled')} />
@@ -332,3 +324,32 @@ const Users: NextPage<{ usersProps: IUser[] }> = ({ usersProps }) => {
 }
 
 export default Users
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx)
+
+  const { 'quimicar.token': token } = parseCookies(ctx)
+
+  const users = await apiClient.get('/users')
+
+  const roles = await apiClient.get('/roles')
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  if (!users.data || !roles.data) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: { data: { users: users.data, roles: roles.data } }
+  }
+}

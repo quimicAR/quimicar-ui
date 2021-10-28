@@ -3,12 +3,14 @@ import { AxiosError } from 'axios'
 import { Input } from 'components'
 import Modal from 'components/Modal/modal.component'
 import useDarkMode from 'hooks/use-dark-theme'
-import { Base, List } from 'layouts'
+import { List } from 'layouts'
 import { IRole } from 'models/role'
-import { GetStaticProps, NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { GetServerSideProps, NextPage } from 'next'
+import { parseCookies } from 'nookies'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
+import getAPIClient from 'services/auth/api-ssr'
 import {
   createRole,
   getAllRoles,
@@ -18,11 +20,6 @@ import {
 } from 'services/roles'
 import Swal from 'sweetalert2'
 import * as yup from 'yup'
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await getAllRoles()
-  return { props: { data } }
-}
 
 const headers = [
   {
@@ -143,44 +140,42 @@ const Roles: NextPage<{ data: IRole[] }> = ({ data }) => {
   }
   return (
     <>
-      <Base>
-        <List
-          title="Roles"
-          headers={headers}
-          onChangeSearch={(search) => setSearch(search)}
-          handleSearch={handleSearchRoles}
-          handleCreate={() => {
-            setModalType('new')
-            setOpenModal(true)
-          }}
-          rows={roles.map((role) => ({
-            ...role,
-            actions: () => (
-              <div className="flex gap-4 justify-end">
-                <button
-                  onClick={() => {
-                    setModalType('edit')
-                    handleEdit(role.role_id)
-                  }}
-                >
-                  <FiEdit2
-                    className={`${
-                      isDarkMode ? 'text-gray-100' : 'text-gray-900'
-                    }`}
-                  />
-                </button>
-                <button onClick={() => handleDelete(role.role_id)}>
-                  <FiTrash
-                    className={`${
-                      isDarkMode ? 'text-gray-100' : 'text-gray-900'
-                    }`}
-                  />
-                </button>
-              </div>
-            )
-          }))}
-        />
-      </Base>
+      <List
+        title="Roles"
+        headers={headers}
+        onChangeSearch={(search) => setSearch(search)}
+        handleSearch={handleSearchRoles}
+        handleCreate={() => {
+          setModalType('new')
+          setOpenModal(true)
+        }}
+        rows={roles.map((role) => ({
+          ...role,
+          actions: () => (
+            <div className="flex gap-4 justify-end">
+              <button
+                onClick={() => {
+                  setModalType('edit')
+                  handleEdit(role.role_id)
+                }}
+              >
+                <FiEdit2
+                  className={`${
+                    isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                  }`}
+                />
+              </button>
+              <button onClick={() => handleDelete(role.role_id)}>
+                <FiTrash
+                  className={`${
+                    isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                  }`}
+                />
+              </button>
+            </div>
+          )
+        }))}
+      />
 
       {openModal && (
         <Modal
@@ -211,3 +206,30 @@ const Roles: NextPage<{ data: IRole[] }> = ({ data }) => {
 }
 
 export default Roles
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx)
+
+  const { 'quimicar.token': token } = parseCookies(ctx)
+
+  const response = await apiClient.get('/roles')
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  if (!response.data) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: { data: response.data }
+  }
+}

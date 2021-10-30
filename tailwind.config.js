@@ -17,7 +17,8 @@ module.exports = {
         400: '#A5A6A7',
         300: '#BCBCBD',
         200: '#D2D2D3',
-        100: '#E8E8E9'
+        100: '#E8E8E9',
+        50: '#FAF9FA'
       },
       blue: colors.sky,
       red: colors.rose,
@@ -39,6 +40,9 @@ module.exports = {
       },
       animation: {
         'spin-slow': 'spin 7s linear infinite'
+      },
+      width: {
+        18: '4.5rem'
       }
     }
   },

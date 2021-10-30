@@ -8,7 +8,8 @@ module.exports = {
     domains: [
       'upload.wikimedia.org',
       'images-of-elements.com',
-      'quimicar-api.herokuapp.com'
+      'quimicar-api.herokuapp.com',
+      'en.wikipedia.org'
     ]
   }
 }

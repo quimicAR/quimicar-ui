@@ -1,46 +1,20 @@
-import { Input } from 'components'
-import Modal from 'components/Modal/modal.component'
 import useDarkMode from 'hooks/use-dark-theme'
-import { Base, List } from 'layouts'
+import { List } from 'layouts'
 import { IElement } from 'models/element'
-import { GetStaticProps, NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
+import router from 'next/router'
+import { parseCookies } from 'nookies'
 import { useState } from 'react'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
-import { getAllElements } from 'services/elements/get-all'
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await getAllElements()
-  return { props: { data } }
-}
-
-const headers = [
-  {
-    id: 'number',
-    title: 'Atomic Number'
-  },
-  {
-    id: 'symbol',
-    title: 'Symbol'
-  },
-  {
-    id: 'name',
-    title: 'Name'
-  },
-  {
-    id: 'atomic_mass',
-    title: 'Atomic Mass'
-  },
-  {
-    id: 'actions',
-    title: 'Actions'
-  }
-]
+import getAPIClient from 'services/auth/api-ssr'
+import { deleteElement } from 'services/elements/delete'
+import Swal from 'sweetalert2'
+import { headers } from './initial-state'
 
 const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
   const { isDarkMode } = useDarkMode()
   const [elements, setElements] = useState<IElement[]>(data)
   const [search, setSearch] = useState('')
-  const [openModal, setOpenModal] = useState(false)
 
   const handleSearchElements = async () => {
     let result
@@ -50,54 +24,99 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
     setElements(result)
   }
 
-  return (
-    <>
-      <Base>
-        <List
-          title="Elements"
-          headers={headers}
-          onChangeSearch={(search) => setSearch(search)}
-          handleSearch={handleSearchElements}
-          handleCreate={() => setOpenModal(true)}
-          rows={elements.map((element) => ({
-            ...element,
-            actions: () => (
-              <div className="flex gap-4 justify-end">
-                <FiEdit2
-                  className={`${
-                    isDarkMode ? 'text-gray-100' : 'text-gray-900'
-                  }`}
-                />
-
-                <FiTrash
-                  className={`${
-                    isDarkMode ? 'text-gray-100' : 'text-gray-900'
-                  }`}
-                />
-              </div>
+  const handleDelete = (id: string) =>
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteElement({ id })
+          .then((response) => {
+            if (response.status === 200) {
+              Swal.fire('Success!', 'Element deleted!', 'success')
+              handleSearchElements()
+            }
+          })
+          .catch((error: any) => {
+            Swal.fire(
+              'Error',
+              `Error to delete this element! <br> ${error}`,
+              'error'
             )
-          }))}
-        />
-      </Base>
+          })
+      }
+    })
 
-      {openModal && (
-        <Modal
-          handleCancel={() => setOpenModal(false)}
-          handleSave={() => setOpenModal(!openModal)}
-          title="Create element"
-        >
-          <div className="flex flex-col gap-2 w-full">
-            <Input
-              className="w-full"
-              placeholder="Name"
-              type="text"
-              onChange={(event) => console.log(event.target.value)}
-            />
+  return (
+    <List
+      title="Elements"
+      headers={headers}
+      onChangeSearch={(search) => setSearch(search)}
+      handleSearch={handleSearchElements}
+      handleCreate={() => router.push('/elements/create')}
+      rows={elements.map((element) => ({
+        ...element,
+        enabled: () => (
+          <span
+            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+              element.enabled
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
+            }`}
+          >
+            {element.enabled ? 'Active' : 'Disabled'}
+          </span>
+        ),
+        actions: () => (
+          <div className="flex gap-4 justify-end">
+            <button
+              onClick={() => router.push(`/elements/update/${element.number}`)}
+            >
+              <FiEdit2
+                className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}
+              />
+            </button>
+
+            <button onClick={() => handleDelete(element.id)}>
+              <FiTrash
+                className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}
+              />
+            </button>
           </div>
-        </Modal>
-      )}
-    </>
+        )
+      }))}
+    />
   )
 }
 
 export default Elements
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx)
+
+  const { 'quimicar.token': token } = parseCookies(ctx)
+
+  const response = await apiClient.get('/elements')
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  if (!response.data) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: { data: response.data }
+  }
+}

@@ -9,6 +9,7 @@ interface ElementHeaderProps {
   symbol: string
   name: string
   atomic_mass: number
+  height?: string
 }
 
 const ElementHeader: React.FC<ElementHeaderProps> = ({
@@ -17,7 +18,8 @@ const ElementHeader: React.FC<ElementHeaderProps> = ({
   atomic_mass,
   name,
   number,
-  symbol
+  symbol,
+  height
 }) => {
   const formatedCategory = formatCategory(category)
 
@@ -25,6 +27,7 @@ const ElementHeader: React.FC<ElementHeaderProps> = ({
     <SC.ElementHeaderContainer
       group={formatedCategory}
       elementUrl={element_img}
+      height={height}
     >
       <SC.ElementSymbol group={formatedCategory}>
         <div className="self-end">
@@ -39,7 +42,7 @@ const ElementHeader: React.FC<ElementHeaderProps> = ({
           {name}
         </Text>
         <Text size="md" weight="light" color="var(--color-light)">
-          {atomic_mass.toFixed(4)} (g/mol)
+          {atomic_mass} (g/mol)
         </Text>
       </SC.ElementSymbol>
       <div className="flex flex-col justify-start h-36">

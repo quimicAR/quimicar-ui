@@ -5,14 +5,15 @@ interface StylesProps {
   group: Category
   isDarkMode?: boolean
   elementUrl?: string
+  height?: string
 }
 
 export const ElementHeaderContainer = styled.header<StylesProps>`
-  ${({ theme, group, elementUrl }) => css`
+  ${({ theme, group, elementUrl, height }) => css`
     display: flex;
     align-items: center;
     width: 100%;
-    height: 350px;
+    height: ${height || '350px'};
     margin-bottom: 1em;
     background: linear-gradient(
         to bottom,

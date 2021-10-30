@@ -29,6 +29,17 @@ export const Input = styled.input`
   `}
 `
 
+export const TextArea = styled.textarea`
+  ${({ theme }) => css`
+    height: 100%;
+    width: 95%;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: ${theme.fonts.color};
+  `}
+`
+
 export const InputError = styled.span`
   ${({ theme }) => css`
     margin-top: 0.8em;

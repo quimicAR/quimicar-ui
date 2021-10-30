@@ -7,15 +7,20 @@ import { FiAlertTriangle } from 'react-icons/fi'
 
 interface InputProps {
   placeholder?: string
-  type: 'text' | 'password' | 'email' | 'select' | 'checkbox'
+  type: 'text' | 'password' | 'email' | 'select' | 'checkbox' | 'textarea'
   options?: Array<{ id: string; name: string }>
   value?: string
   icon?: IconType | JSX.Element
   name?: string
   error?: FieldError
   label?: string
+  rows?: number
   className?: string
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+  onChange: (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void
 }
 
 const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
@@ -29,7 +34,8 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
     value,
     label,
     options,
-    className
+    className,
+    rows
   } = props
   const { isDarkMode } = useDarkMode()
 
@@ -74,6 +80,21 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
             type={type}
             name={name}
             ref={ref as RefObject<HTMLInputElement>}
+            className={className}
+          />
+          {icon && icon}
+        </SC.InputContainer>
+      )}
+
+      {type === 'textarea' && (
+        <SC.InputContainer isDarkMode={isDarkMode}>
+          <SC.TextArea
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            rows={rows}
+            name={name}
+            ref={ref as RefObject<HTMLTextAreaElement>}
             className={className}
           />
           {icon && icon}

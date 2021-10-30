@@ -7,7 +7,7 @@ export interface IElement {
   boil: number
   category: string
   density: number
-  discovered_by: string | string[]
+  discovered_by: string
   melt: number
   molar_heat: number
   named_by: string

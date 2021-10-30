@@ -142,7 +142,7 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
         })
           .then((response) => {
             if (response.status === 201) {
-              Swal.fire('Success!', 'Account was created!', 'success')
+              Swal.fire('Success!', 'User was updated!', 'success')
               setOpenModal(!openModal)
               reset()
               handleSearchUsers()

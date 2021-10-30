@@ -31,13 +31,17 @@ const SidebarButton: React.FC<{
   <Link href={href}>
     <div
       onClick={onClick}
-      className={`sidebar-animation flex gap-4 items-center  h-12 w-full px-4 cursor-pointer  hover:bg-primary transition-all duration-300 ease-linear group ${
-        isDarkMode ? 'bg-gray-900 ' : 'bg-gray-100'
-      } ${hideLabel ? 'justify-center' : 'justify-start'}`}
+      className={`sidebar-animation flex gap-3 items-center h-12 w-full px-6 cursor-pointer  hover:bg-primary transition-all duration-300 ease-linear group justify-start ${
+        isDarkMode && 'bg-gray-900'
+      } `}
     >
       {icon}
       {hideLabel ? (
-        <span className="ml-5 z-20 sidebar-tooltip  group-hover:scale-100">
+        <span
+          className={`ml-5 z-20 sidebar-tooltip group-hover:scale-100  ${
+            hideLabel && 'overflow-hidden'
+          }`}
+        >
           {label}
         </span>
       ) : (
@@ -61,35 +65,36 @@ const Sidebar = () => {
 
   return (
     <SC.Sidebar
-      className={`sidebar-animation flex flex-col items justify-center text-white shadow-md bg-gray-100 cursor-pointer
-      ${isOpen ? 'w-60' : 'w-16'}
-       ${isDarkMode ? 'bg-gray-900' : 'bg-opacity-100'} `}
+      className={`sidebar-animation flex flex-col items justify-center text-white shadow-md  cursor-pointer
+      ${isOpen ? 'w-60' : 'w-18'}
+      ${isDarkMode && 'bg-gray-900'} `}
     >
+      {/* LOGO */}
       <div
-        className={`bg-primary flex h-14 w-full items-center px-4 justify-start  ${
-          isDarkMode ? 'bg-gray-900' : 'bg-gray-100 bg-opacity-30 '
-        } group`}
+        className={`group flex h-14 w-full items-center px-6 justify-start overflow-hidden`}
         onClick={() => router.push('/')}
       >
         <img
-          className="atom-icon group-hover:rotate-180 w-7 h-7 mr-4"
+          className="atom-icon group-hover:rotate-180 w-6 h-6 mr-4"
           src={isDarkMode ? iconOptions.light : iconOptions.dark}
           alt="Imagem de um átomo"
         />
-        {isOpen && (
-          <Text size="lg" weight="bold">
-            quimicAR
-          </Text>
-        )}
+        {isOpen && <Text size="lg">quimicAR</Text>}
       </div>
 
+      {/* OPEN SIDEBAR */}
       <div
         className={`absolute z-10 sidebar-animation ${
-          isOpen ? 'left-56' : 'left-12'
+          isOpen ? 'left-56' : 'left-14'
         } top-10 w-8 h-8 rounded-full flex items justify-center bg-gray-800 shadow-md hover:bg-primary`}
+        onClick={() => setIsOpen(!isOpen)}
       >
         <button onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <FiChevronLeft /> : <FiChevronRight />}
+          {isOpen ? (
+            <FiChevronLeft className="group-hover:text-white" />
+          ) : (
+            <FiChevronRight className="group-hover:text-white" />
+          )}
         </button>
       </div>
 
@@ -121,7 +126,7 @@ const Sidebar = () => {
           <SidebarButton
             icon={<FiLogOut color={iconColor} fontSize="1.2em" />}
             label="Logout"
-            href="/logout"
+            href="/login"
             isDarkMode={isDarkMode}
             onClick={handleLogout}
             hideLabel={!isOpen}

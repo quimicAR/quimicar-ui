@@ -11,9 +11,9 @@ const Admin: React.FC = ({ children }) => {
       <Sidebar />
       <SC.Main
         style={{ gridArea: 'main' }}
-        className={`${
-          isDarkMode ? 'bg-secondary' : 'bg-gray-100'
-        } bg-opacity-30`}
+        className={`h-full ${
+          isDarkMode ? 'bg-secondary' : 'bg-gray-100 bg-opacity-50'
+        } `}
       >
         {children}
       </SC.Main>

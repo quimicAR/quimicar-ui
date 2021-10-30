@@ -82,7 +82,7 @@ const List: React.FC<ListProps> = ({
                   isDarkMode ? 'bg-gray-800 bg-opacity-20' : ''
                 }`}
               >
-                <thead className={isDarkMode ? 'bg-gray-800' : 'bg-gray-100 '}>
+                <thead className={isDarkMode ? 'bg-gray-700' : 'bg-gray-100 '}>
                   <tr className="rounded">
                     {headers?.map((header) => (
                       <th
@@ -104,7 +104,7 @@ const List: React.FC<ListProps> = ({
                         {headers.map((th, thId) => (
                           <td
                             key={thId}
-                            className="table-data text-sm text-gray-500"
+                            className="table-data text-sm text-gray-100"
                           >
                             {typeof rows[rowId][th.id] === 'function'
                               ? rows[rowId][th.id]()

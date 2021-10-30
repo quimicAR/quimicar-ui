@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
   return (
     <SC.Header
       style={{ gridArea: 'header' }}
-      className={isDarkMode ? 'bg-secondary' : 'bg-opacity-100'}
+      className={isDarkMode ? 'bg-gray-900' : 'bg-opacity-100'}
     >
       <div>
         {showTitle && (

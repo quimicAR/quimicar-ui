@@ -190,7 +190,7 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
       setValue('summary', summary)
       setValue('enabled', enabled)
     }
-  }, [])
+  }, [element, setValue])
 
   useEffect(() => {
     populateFields()

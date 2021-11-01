@@ -326,8 +326,6 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
   )
 }
 
-export default Users
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apiClient = getAPIClient(ctx)
 
@@ -356,3 +354,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: { data: { users: users.data, roles: roles.data } }
   }
 }
+
+Users.displayName = 'Users'
+
+export default Users

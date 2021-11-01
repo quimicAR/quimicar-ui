@@ -204,8 +204,6 @@ const Roles: NextPage<{ data: IRole[] }> = ({ data }) => {
   )
 }
 
-export default Roles
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apiClient = getAPIClient(ctx)
 
@@ -232,3 +230,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: { data: response.data }
   }
 }
+
+Roles.displayName = 'Roles'
+
+export default Roles

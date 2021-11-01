@@ -124,8 +124,6 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
   )
 }
 
-export default Elements
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apiClient = getAPIClient(ctx)
 
@@ -152,3 +150,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: { data: response.data }
   }
 }
+
+Elements.displayName = 'Elements'
+
+export default Elements

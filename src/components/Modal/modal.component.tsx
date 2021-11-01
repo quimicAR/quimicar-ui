@@ -1,7 +1,6 @@
-import { Button, Text } from 'components'
-import useDarkMode from 'hooks/use-dark-theme'
+import { Button, Text } from '../../components'
+import useDarkMode from '../../hooks/use-dark-theme'
 import { IconType } from 'react-icons'
-import * as SC from './modal.styles'
 
 interface ModalProps {
   title: string

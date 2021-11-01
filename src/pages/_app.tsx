@@ -5,7 +5,7 @@ import { ThemeProvider } from '../hooks/use-theme'
 import { AuthProvider } from '../contexts/auth-context'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
-import { Base } from 'layouts'
+import { Base } from '../layouts'
 
 function App({ Component, pageProps }: AppProps) {
   return (

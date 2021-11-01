@@ -1,10 +1,10 @@
-import { Section, Row, ElementHeader } from 'components'
-import useDarkMode from 'hooks/use-dark-theme'
-import { IElement } from 'models/element'
+import { Section, Row, ElementHeader } from '../../components'
+import useDarkMode from '../../hooks/use-dark-theme'
+import { IElement } from '../../models/element'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
 import { FiFileText, FiInfo } from 'react-icons/fi'
-import { getElementById } from 'services/elements/get-by-id'
+import { getElementById } from '../../services/elements/get-by-id'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let size = Array.from(Array(119).keys())

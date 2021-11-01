@@ -1,7 +1,6 @@
 import * as SC from './admin.styles'
-import { Header } from '../../components'
+import { Header, Sidebar } from '../../components'
 import useDarkMode from '../../hooks/use-dark-theme'
-import Sidebar from 'components/Sidebar/sidebar.component'
 
 const Admin: React.FC = ({ children }) => {
   const { isDarkMode } = useDarkMode()

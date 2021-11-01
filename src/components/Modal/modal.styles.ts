@@ -6,4 +6,3 @@ export const Modal = styled.div`
   height: 150px;
   padding: 3rem;
 `
-

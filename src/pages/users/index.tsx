@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AxiosError } from 'axios'
-import { Input } from 'components'
-import Modal from 'components/Modal/modal.component'
-import useDarkMode from 'hooks/use-dark-theme'
-import { List } from 'layouts'
-import { IUser } from 'models/user'
-import { GetServerSideProps, GetStaticProps, NextPage } from 'next'
+import { Input, Modal } from '../../components'
+import useDarkMode from '../../hooks/use-dark-theme'
+import { List } from '../../layouts'
+import { IUser } from '../../models/user'
+import { GetServerSideProps, NextPage } from 'next'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
@@ -16,12 +14,12 @@ import {
   getAllUsers,
   getUserById,
   updateUser
-} from 'services/users'
+} from '../../services/users'
 import Swal from 'sweetalert2'
 import * as yup from 'yup'
 import { parseCookies } from 'nookies'
-import getAPIClient from 'services/auth/api-ssr'
-import { IRole } from 'models/role'
+import getAPIClient from '../../services/auth/api-ssr'
+import { IRole } from '../../models/role'
 
 const headers = [
   {

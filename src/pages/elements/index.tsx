@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useDarkMode from 'hooks/use-dark-theme'
+import useDarkMode from '../../hooks/use-dark-theme'
 import { List } from 'layouts'
-import { IElement } from 'models/element'
+import { IElement } from '../../models/element'
 import { GetServerSideProps, NextPage } from 'next'
 import router from 'next/router'
 import { parseCookies } from 'nookies'
 import { useState } from 'react'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
-import getAPIClient from 'services/auth/api-ssr'
-import { deleteElement } from 'services/elements/delete'
+import getAPIClient from '../../services/auth/api-ssr'
+import { deleteElement } from '../../services/elements/delete'
 import Swal from 'sweetalert2'
 import { headers } from './initial-state'
 

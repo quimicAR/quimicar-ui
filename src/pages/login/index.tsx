@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextPage } from 'next'
-import { Button, Input, Text } from 'components'
-import useDarkMode from 'hooks/use-dark-theme'
+import { Button, Input, Text } from '../../components'
+import useDarkMode from '../../hooks/use-dark-theme'
 import { FiLock, FiAtSign } from 'react-icons/fi'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
-import { AuthContext } from 'contexts/auth-context'
+import { AuthContext } from '../../contexts/auth-context'
 
 interface FormData {
   email: string

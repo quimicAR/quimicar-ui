@@ -10,9 +10,9 @@ import {
 import { GiAtom } from 'react-icons/gi'
 import * as SC from './sidebar.styles'
 import Link from 'next/link'
-import useDarkMode from 'hooks/use-dark-theme'
+import useDarkMode from '../../hooks/use-dark-theme'
 import { destroyCookie } from 'nookies'
-import { Text } from 'components'
+import { Text } from '../../components'
 import { useState } from 'react'
 
 const iconOptions = {

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from 'next/link'
-import useDarkMode from 'hooks/use-dark-theme'
-import { useEffect } from 'react'
-import { Button, Input } from 'components'
+import useDarkMode from '../../hooks/use-dark-theme'
+import { Button, Input } from '../../components'
 import { FiAlertOctagon, FiPlus, FiSearch } from 'react-icons/fi'
 
 interface ListProps {

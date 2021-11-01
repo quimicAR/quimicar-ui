@@ -1,23 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
-import { Input } from 'components'
-import Modal from 'components/Modal/modal.component'
-import useDarkMode from 'hooks/use-dark-theme'
+import { Input, Modal } from '../../components'
+import useDarkMode from '../../hooks/use-dark-theme'
 import { List } from 'layouts'
-import { IRole } from 'models/role'
+import { IRole } from '../../models/role'
 import { GetServerSideProps, NextPage } from 'next'
 import { parseCookies } from 'nookies'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
-import getAPIClient from 'services/auth/api-ssr'
+import getAPIClient from '../../services/auth/api-ssr'
 import {
   createRole,
   getAllRoles,
   getRoleById,
   updateRole,
   deleteRole
-} from 'services/roles'
+} from '../../services/roles'
 import Swal from 'sweetalert2'
 import * as yup from 'yup'
 

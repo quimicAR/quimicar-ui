@@ -3,8 +3,8 @@ import * as SC from './atom.styles'
 import useDarkMode from '../../hooks/use-dark-theme'
 import { formatCategory } from '../../helper/format-category'
 import Link from 'next/link'
-import { Size } from 'styles/styles'
-import { Text } from 'components'
+import { Size } from '../../styles/styles'
+import { Text } from '../../components'
 interface AtomProps {
   atomName: string
   atomicNumber: number

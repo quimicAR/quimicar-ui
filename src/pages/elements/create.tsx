@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, ElementHeader, Input } from 'components'
+import { Button, ElementHeader, Input } from '../../components'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { schema, FormData } from './initial-state'
 import Link from 'next/link'
-import useDarkMode from 'hooks/use-dark-theme'
+import useDarkMode from '../../hooks/use-dark-theme'
 import router from 'next/router'
-import { createElement } from 'services/elements/create'
+import { createElement } from '../../services/elements/create'
 import Swal from 'sweetalert2'
 
 const Create = () => {

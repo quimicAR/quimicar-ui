@@ -8,4 +8,11 @@ export default {
   argTypes: {}
 } as Meta
 
-export const Default: Story = (args) => <Modal {...args} />
+export const Default: Story = (args) => (
+  <Modal
+    buttonCancel={{ handleCancel: () => console.log('Cancel button clicked') }}
+    buttonSave={{ handleSave: () => console.log('Save button clicked') }}
+    title="Modal Test"
+    {...args}
+  />
+)

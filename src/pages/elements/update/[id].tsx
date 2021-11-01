@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useDarkMode from 'hooks/use-dark-theme'
-import { IElement } from 'models/element'
+import useDarkMode from '../../../hooks/use-dark-theme'
+import { IElement } from '../../../models/element'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { getElementById } from 'services/elements/get-by-id'
+import { getElementById } from '../../../services/elements/get-by-id'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, ElementHeader, Input } from 'components'
+import { Button, ElementHeader, Input } from '../../../components'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { schema, FormData } from '../initial-state'
 import Link from 'next/link'
 import router from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import { updateElement } from 'services/elements/update'
+import { updateElement } from '../../../services/elements/update'
 import Swal from 'sweetalert2'
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from 'next'
 import { PeriodicTable } from '../components'
-import { IElement } from 'models/element'
-import { getAllElements } from 'services/elements/get-all'
+import { IElement } from '../models/element'
+import { getAllElements } from '../services/elements/get-all'
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await getAllElements()

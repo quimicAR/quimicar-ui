@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from 'react'
 import { recover, signIn } from '../services/auth'
 import { setCookie, parseCookies } from 'nookies'
 import Router from 'next/router'
-import api from 'services'
+import api from '../services'
 import Swal from 'sweetalert2'
 import { isUndefined } from 'lodash'
 

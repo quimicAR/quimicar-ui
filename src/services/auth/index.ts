@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import api from 'services'
+import api from '../../services'
 
 type SignInProps = {
   email: string

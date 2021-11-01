@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
 import { Input } from 'components'
@@ -67,7 +68,7 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
   const schema = yup.object({
     fullName: yup
       .string()
-      .min(5, 'Minimun of 5 characters!')
+      .min(2, 'Minimun of 2 characters!')
       .required('Your full name is required!'),
     email: yup
       .string()
@@ -123,10 +124,10 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
               handleSearchUsers()
             }
           })
-          .catch((error: AxiosError) => {
+          .catch((error: any) => {
             Swal.fire(
               'Error',
-              `Error to create user! <br> ${error.message}`,
+              `Error to create user! <br> ${error.response.data.message}`,
               'error'
             )
           })
@@ -148,10 +149,10 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
               handleSearchUsers()
             }
           })
-          .catch((error: AxiosError) => {
+          .catch((error: any) => {
             Swal.fire(
               'Error',
-              `Error to edit user! <br> ${error.message}`,
+              `Error to edit user! <br> ${error.response.data.message}`,
               'error'
             )
           })
@@ -181,7 +182,7 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
           .catch((error) => {
             Swal.fire(
               'Error',
-              `Error to delete this user! <br> ${error}`,
+              `Error to delete this user! <br> ${error.response.data.message}`,
               'error'
             )
           })
@@ -206,7 +207,11 @@ const Users: NextPage<{ data: { users: IUser[]; roles: IRole[] } }> = ({
         }
       })
       .catch((error) => {
-        Swal.fire('Error', `Error to update this user! <br> ${error}`, 'error')
+        Swal.fire(
+          'Error',
+          `Error to update this user! <br> ${error.response.data.message}`,
+          'error'
+        )
       })
   }
 

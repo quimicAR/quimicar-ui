@@ -22,6 +22,8 @@ export interface FormData {
   electron_configuration_semantic: string
   electron_affinity: number
   element_img: string
+  xpos: number
+  ypos: number
   enabled: boolean
 }
 
@@ -34,23 +36,25 @@ export const schema = yup.object({
   atomic_mass: yup.number().required('Atomic Mass is required'),
   summary: yup.string().nullable(),
   appearance: yup.string().nullable(),
-  boil: yup.number().nullable(),
-  category: yup.string(),
-  density: yup.number().nullable(),
-  melt: yup.number().nullable(),
-  molar_heat: yup.number().nullable(),
+  boil: yup.number().optional(),
+  category: yup.string().required('Element category is required'),
+  density: yup.number().optional(),
+  melt: yup.number().optional(),
+  molar_heat: yup.number().optional(),
   discovered_by: yup.string().nullable(),
   named_by: yup.string().nullable(),
-  period: yup.number().nullable(),
+  period: yup.number().optional(),
+  xpos: yup.number().optional(),
+  ypos: yup.number().optional(),
   phase: yup.string().nullable(),
   symbol: yup.string().nullable(),
   source: yup.string().nullable(),
   spectral_img: yup.string().nullable(),
   electron_configuration: yup.string().nullable(),
   electron_configuration_semantic: yup.string().nullable(),
-  electron_affinity: yup.number().nullable(),
+  electron_affinity: yup.number().optional(),
   element_img: yup.string().nullable(),
-  enabled: yup.bool()
+  enabled: yup.bool().default(true)
 })
 
 export const headers = [
@@ -69,6 +73,10 @@ export const headers = [
   {
     id: 'atomic_mass',
     title: 'Atomic Mass'
+  },
+  {
+    id: 'category',
+    title: 'Category'
   },
   {
     id: 'enabled',

@@ -1,18 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Input } from 'components'
+import { Button, ElementHeader, Input } from 'components'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { schema, FormData } from './initial-state'
 import Link from 'next/link'
 import useDarkMode from 'hooks/use-dark-theme'
 import router from 'next/router'
+import { createElement } from 'services/elements/create'
+import Swal from 'sweetalert2'
 
 const Create = () => {
   const { isDarkMode } = useDarkMode()
-  const { register, handleSubmit, formState, reset, setValue } =
-    useForm<FormData>({
+  const { register, handleSubmit, formState, reset, watch } = useForm<FormData>(
+    {
       mode: 'onChange',
       resolver: yupResolver(schema)
-    })
+    }
+  )
 
   const handleSave: SubmitHandler<FormData> = ({
     appearance,
@@ -36,9 +40,11 @@ const Create = () => {
     source,
     spectral_img,
     summary,
-    symbol
+    symbol,
+    xpos,
+    ypos
   }) => {
-    console.table({
+    createElement({
       appearance,
       atomic_mass,
       boil,
@@ -60,9 +66,26 @@ const Create = () => {
       source,
       spectral_img,
       summary,
-      symbol
+      symbol,
+      xpos,
+      ypos
     })
+      .then((response) => {
+        if (response.status === 201) {
+          Swal.fire('Success!', 'Element was created!', 'success')
+          reset()
+          router.push('/elements')
+        }
+      })
+      .catch((error: any) => {
+        Swal.fire(
+          'Error',
+          `Error to create this element! <br> ${error.response.data.message}`,
+          'error'
+        )
+      })
   }
+
   const handleCancel = () => router.push('/elements')
 
   return (
@@ -93,6 +116,18 @@ const Create = () => {
               } w-full shadow rounded sm:rounded-lg`}
             >
               <div className="flex flex-col gap-10 w-full p-10">
+                <div>
+                  <ElementHeader
+                    category={watch('category') || 'nobleGases'}
+                    atomic_mass={watch('atomic_mass')}
+                    element_img={watch('element_img') || ''}
+                    name={watch('name') || 'Unknown'}
+                    number={watch('number') || 0}
+                    symbol={watch('symbol') || 'Unk'}
+                    height="300px"
+                  />
+                </div>
+
                 <div className="flex gap-10 w-full">
                   <div className="w-full flex flex-col gap-4">
                     <Input
@@ -140,8 +175,20 @@ const Create = () => {
                       type="text"
                       {...register('melt')}
                     />
+                    <Input
+                      className="w-full"
+                      label="Horizontal Position"
+                      type="text"
+                      {...register('xpos')}
+                    />
                   </div>
                   <div className="w-full flex flex-col gap-4">
+                    <Input
+                      className="w-full"
+                      label="Symbol"
+                      type="text"
+                      {...register('symbol')}
+                    />
                     <Input
                       className="w-full"
                       label="Discovered By"
@@ -166,12 +213,6 @@ const Create = () => {
                       type="text"
                       {...register('phase')}
                     />
-                    <Input
-                      className="w-full"
-                      label="Symbol"
-                      type="text"
-                      {...register('symbol')}
-                    />
 
                     <Input
                       className="w-full"
@@ -184,6 +225,12 @@ const Create = () => {
                       label="Molar Heat"
                       type="text"
                       {...register('molar_heat')}
+                    />
+                    <Input
+                      className="w-full"
+                      label="Vertical Position"
+                      type="text"
+                      {...register('ypos')}
                     />
                   </div>
                 </div>
@@ -205,7 +252,7 @@ const Create = () => {
                     className="w-full"
                     label="Electron Configuration"
                     type="text"
-                    {...register('spectral_img')}
+                    {...register('electron_configuration')}
                   />
                   <Input
                     className="w-full"
@@ -223,8 +270,18 @@ const Create = () => {
                   <Input
                     className="w-full h-auto"
                     label="Category"
-                    type="text"
-                    rows={3}
+                    type="select"
+                    options={[
+                      { id: '1', name: 'nobleGases' },
+                      { id: '2', name: 'alkaliMetals' },
+                      { id: '3', name: 'alkalineEarthMetals' },
+                      { id: '4', name: 'postTransitionMetals' },
+                      { id: '5', name: 'transitionMetals' },
+                      { id: '6', name: 'lanthanoids' },
+                      { id: '7', name: 'actinoids' },
+                      { id: '8', name: 'nonMetal' },
+                      { id: '9', name: 'metalloid' }
+                    ]}
                     {...register('category')}
                   />
                   <Input
@@ -242,6 +299,8 @@ const Create = () => {
                   />
                 </div>
               </div>
+
+              {/* CANCEL / SAVE BUTTONS */}
               <div
                 className={`${
                   isDarkMode ? 'bg-gray-900' : 'bg-gray-50'

@@ -7,7 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import Swal from 'sweetalert2'
 import { useContext } from 'react'
 import { AuthContext } from 'contexts/auth-context'
 
@@ -41,15 +40,10 @@ const Login: NextPage = () => {
     email,
     password
   }) => {
-    try {
-      await setAuthenticated({
-        email,
-        password
-      })
-      Swal.fire('Success!', 'Logged in!', 'success')
-    } catch (error: any) {
-      Swal.fire('Error', `Error to login! <br> ${error.message}`, 'error')
-    }
+    await setAuthenticated({
+      email,
+      password
+    })
   }
 
   return (

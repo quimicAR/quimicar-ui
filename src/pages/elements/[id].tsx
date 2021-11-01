@@ -14,7 +14,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { id: id.toString() }
   }))
 
-  return { paths, fallback: false }
+  return { paths, fallback: 'blocking' }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -60,7 +60,6 @@ const Element: NextPage<{ data: IElement }> = ({ data }) => {
 
   return (
     <div className=" lg:w-10/12 sm:w-full">
-      {/* <Image src={} /> */}
       <ElementHeader
         category={category}
         atomic_mass={atomic_mass}
@@ -84,7 +83,7 @@ const Element: NextPage<{ data: IElement }> = ({ data }) => {
           <Row title="Atom name: " text={name} />
           <Row title="Summary:" text={summary} />
           <Row title=" Appearance:" text={appearance} />
-          <Row title=" Discovered:" text={discovered_by as string} />
+          <Row title=" Discovered by:" text={discovered_by as string} />
           <Row title=" Named by:" text={named_by} />
         </Section>
 

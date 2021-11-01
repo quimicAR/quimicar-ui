@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import useDarkMode from 'hooks/use-dark-theme'
 import { IElement } from 'models/element'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
@@ -8,7 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { schema, FormData } from '../initial-state'
 import Link from 'next/link'
 import router from 'next/router'
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { updateElement } from 'services/elements/update'
 import Swal from 'sweetalert2'
 
@@ -20,20 +21,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { id: id.toString() }
   }))
 
-  return { paths, fallback: false }
+  return { paths, fallback: 'blocking' }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.id
 
-  const { data } = await getElementById({ id: id as string })
+  const element = await getElementById({ id: id as string })
 
-  return { props: { data } }
+  return {
+    props: { elementData: element.data }
+  }
 }
 
-const Update: NextPage<{ data: IElement }> = ({ data }) => {
+const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
   const { isDarkMode } = useDarkMode()
-  const [element, setElement] = useState<IElement | null>(data)
+  const [element, setElement] = useState<IElement | null>(elementData)
 
   const { register, handleSubmit, formState, reset, setValue, watch } =
     useForm<FormData>({
@@ -63,33 +66,10 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
     source,
     spectral_img,
     summary,
-    symbol
+    symbol,
+    xpos,
+    ypos
   }) => {
-    console.table({
-      appearance,
-      atomic_mass,
-      boil,
-      category,
-      density,
-      discovered_by,
-      electron_affinity,
-      electron_configuration,
-      electron_configuration_semantic,
-      element_img,
-      enabled,
-      melt,
-      molar_heat,
-      name,
-      named_by,
-      number,
-      period,
-      phase,
-      source,
-      spectral_img,
-      summary,
-      symbol
-    })
-
     updateElement({
       appearance,
       atomic_mass,
@@ -112,19 +92,21 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
       source,
       spectral_img,
       summary,
-      symbol
+      symbol,
+      xpos,
+      ypos
     })
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           Swal.fire('Success!', 'Element was updated!', 'success')
           reset()
           router.push('/elements')
         }
       })
-      .catch((error) => {
+      .catch((error: any) => {
         Swal.fire(
           'Error',
-          `Error to update this element! <br> ${error}`,
+          `Error to update this element! <br> ${error.response.data.message}`,
           'error'
         )
       })
@@ -157,7 +139,9 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
         source,
         spectral_img,
         summary,
-        symbol
+        symbol,
+        xpos,
+        ypos
       } = element
 
       setValue('appearance', appearance)
@@ -189,6 +173,8 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
 
       setValue('summary', summary)
       setValue('enabled', enabled)
+      setValue('xpos', xpos)
+      setValue('ypos', ypos)
     }
   }, [element, setValue])
 
@@ -285,8 +271,20 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
                       type="text"
                       {...register('melt')}
                     />
+                    <Input
+                      className="w-full"
+                      label="Horizontal Position"
+                      type="text"
+                      {...register('xpos')}
+                    />
                   </div>
                   <div className="w-full flex flex-col gap-4">
+                    <Input
+                      className="w-full"
+                      label="Symbol"
+                      type="text"
+                      {...register('symbol')}
+                    />
                     <Input
                       className="w-full"
                       label="Discovered By"
@@ -300,34 +298,16 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
                       {...register('named_by')}
                     />
                     <Input
-                      className="w-full h-auto"
-                      label="Category"
-                      type="select"
-                      options={[
-                        { id: '1', name: 'nobleGases' },
-                        { id: '2', name: 'alkaliMetals' },
-                        { id: '3', name: 'alkalineEarthMetals' },
-                        { id: '4', name: 'postTransitionMetals' },
-                        { id: '5', name: 'transitionMetals' },
-                        { id: '6', name: 'lanthanoids' },
-                        { id: '7', name: 'actinoids' },
-                        { id: '8', name: 'nonMetal' }
-                      ]}
-                      rows={3}
-                      {...register('category')}
+                      className="w-full"
+                      label="Period"
+                      type="text"
+                      {...register('period')}
                     />
-
                     <Input
                       className="w-full"
                       label="Phase"
                       type="text"
                       {...register('phase')}
-                    />
-                    <Input
-                      className="w-full"
-                      label="Symbol"
-                      type="text"
-                      {...register('symbol')}
                     />
 
                     <Input
@@ -341,6 +321,12 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
                       label="Molar Heat"
                       type="text"
                       {...register('molar_heat')}
+                    />
+                    <Input
+                      className="w-full"
+                      label="Vertical Position"
+                      type="text"
+                      {...register('ypos')}
                     />
                   </div>
                 </div>
@@ -370,19 +356,30 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
                     type="text"
                     {...register('electron_configuration_semantic')}
                   />
-                  <Input
-                    className="w-full"
-                    label="Period"
-                    type="text"
-                    {...register('period')}
-                  />
+
                   <Input
                     className="w-full"
                     label="Element Image"
                     type="text"
                     {...register('element_img')}
                   />
-
+                  <Input
+                    className="w-full h-auto"
+                    label="Category"
+                    type="select"
+                    options={[
+                      { id: '1', name: 'nobleGases' },
+                      { id: '2', name: 'alkaliMetals' },
+                      { id: '3', name: 'alkalineEarthMetals' },
+                      { id: '4', name: 'postTransitionMetals' },
+                      { id: '5', name: 'transitionMetals' },
+                      { id: '6', name: 'lanthanoids' },
+                      { id: '7', name: 'actinoids' },
+                      { id: '8', name: 'nonMetal' },
+                      { id: '9', name: 'metalloid' }
+                    ]}
+                    {...register('category')}
+                  />
                   <Input
                     className="w-full"
                     label="Enabled"
@@ -403,7 +400,7 @@ const Update: NextPage<{ data: IElement }> = ({ data }) => {
               <div
                 className={`${
                   isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
-                } px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse`}
+                } px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded sm:rounded-lg`}
               >
                 <Button
                   type="button"

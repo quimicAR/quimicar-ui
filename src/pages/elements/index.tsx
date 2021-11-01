@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import useDarkMode from 'hooks/use-dark-theme'
 import { List } from 'layouts'
 import { IElement } from 'models/element'
@@ -24,7 +25,7 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
     setElements(result)
   }
 
-  const handleDelete = (id: string) =>
+  const handleDelete = (atomicNumber: number) =>
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -33,7 +34,7 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteElement({ id })
+        deleteElement({ atomicNumber })
           .then((response) => {
             if (response.status === 200) {
               Swal.fire('Success!', 'Element deleted!', 'success')
@@ -43,7 +44,7 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
           .catch((error: any) => {
             Swal.fire(
               'Error',
-              `Error to delete this element! <br> ${error}`,
+              `Error to delete this element! <br> ${error.response.data.message}`,
               'error'
             )
           })
@@ -59,6 +60,7 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
       handleCreate={() => router.push('/elements/create')}
       rows={elements.map((element) => ({
         ...element,
+        atomic_mass: () => element.atomic_mass.toFixed(5),
         enabled: () => (
           <span
             className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -80,7 +82,7 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
               />
             </button>
 
-            <button onClick={() => handleDelete(element.id)}>
+            <button onClick={() => handleDelete(element.number)}>
               <FiTrash
                 className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}
               />

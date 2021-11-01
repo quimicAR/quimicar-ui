@@ -2,10 +2,10 @@ import { AxiosResponse } from 'axios'
 import api from 'services'
 
 interface DeleteElementProps {
-  id: string
+  atomicNumber: number
 }
 
 export const deleteElement = async ({
-  id
+  atomicNumber
 }: DeleteElementProps): Promise<AxiosResponse> =>
-  await api.delete(`/elements/${id}`)
+  await api.delete(`/elements/${atomicNumber}`)

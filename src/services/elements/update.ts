@@ -25,6 +25,8 @@ interface UpdateElementProps {
   electron_affinity: number
   element_img: string
   enabled: boolean
+  xpos: number
+  ypos: number
 }
 
 export const updateElement = async ({
@@ -49,7 +51,9 @@ export const updateElement = async ({
   source,
   spectral_img,
   summary,
-  symbol
+  symbol,
+  xpos,
+  ypos
 }: UpdateElementProps): Promise<AxiosResponse<IElement>> => {
   return await api.put(`/elements/${number}`, {
     appearance,
@@ -73,6 +77,8 @@ export const updateElement = async ({
     spectral_img,
     summary,
     symbol,
+    xpos,
+    ypos,
     enabled: enabled as unknown as boolean
   })
 }

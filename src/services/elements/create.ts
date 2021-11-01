@@ -25,6 +25,8 @@ interface CreateElementProps {
   electron_affinity: number
   element_img: string
   enabled: boolean
+  xpos: number
+  ypos: number
 }
 
 export const createElement = async ({
@@ -49,7 +51,9 @@ export const createElement = async ({
   source,
   spectral_img,
   summary,
-  symbol
+  symbol,
+  xpos,
+  ypos
 }: CreateElementProps): Promise<AxiosResponse<IUser>> =>
   api.post('/elements', {
     appearance,
@@ -73,5 +77,7 @@ export const createElement = async ({
     source,
     spectral_img,
     summary,
-    symbol
+    symbol,
+    xpos,
+    ypos
   })

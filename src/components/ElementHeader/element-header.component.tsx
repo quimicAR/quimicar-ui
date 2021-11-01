@@ -1,5 +1,5 @@
 import { Text } from '../../components'
-import { formatCategory } from '../../helper/format-category'
+import { formatCategory } from '../../helpers/format-category'
 import * as SC from './element-header.styles'
 
 interface ElementHeaderProps {

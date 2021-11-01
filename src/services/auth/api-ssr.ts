@@ -7,7 +7,10 @@ export default function getAPIClient(ctx?: any) {
   const { 'quimicar.token': token } = parseCookies(ctx)
 
   const api = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_BASE_URL_PROD}`
+    baseURL: `${
+      process.env.NEXT_PUBLIC_BASE_URL_PROD
+      // process.env.NEXT_PUBLIC_BASE_URL_DEV
+    }`
   })
 
   if (token) {

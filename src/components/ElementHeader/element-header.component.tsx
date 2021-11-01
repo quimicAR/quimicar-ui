@@ -41,7 +41,12 @@ const ElementHeader: React.FC<ElementHeaderProps> = ({
         <Text size="lg" weight="light" color="var(--color-light)">
           {name}
         </Text>
-        <Text size="md" weight="light" color="var(--color-light)">
+        <Text
+          size="md"
+          weight="light"
+          color="var(--color-light)"
+          className="whitespace-nowrap overflow-ellipsis"
+        >
           {atomic_mass} (g/mol)
         </Text>
       </SC.ElementSymbol>

@@ -1,4 +1,4 @@
-import { TextSize, Weight } from 'models/styles'
+import { TextSize, Weight } from 'styles/styles'
 import * as SC from './text.styles'
 
 interface TextProps {
@@ -6,6 +6,7 @@ interface TextProps {
   color?: string
   weight?: Weight
   text?: string
+  className?: string
 }
 
 const Text: React.FC<TextProps> = ({
@@ -13,10 +14,16 @@ const Text: React.FC<TextProps> = ({
   weight = 'light',
   color,
   text,
-  children
+  children,
+  className
 }) => {
   return (
-    <SC.Text fontSize={size as TextSize} color={color} weight={weight}>
+    <SC.Text
+      fontSize={size as TextSize}
+      color={color}
+      weight={weight}
+      className={className}
+    >
       {text}
       {children}
     </SC.Text>

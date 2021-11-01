@@ -1,14 +1,16 @@
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 
-export const SectionContainer = styled.section``
-
-export const Title = styled.header`
-  background: rgba(0, 0, 0, 0.2);
-  height: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  border-radius: 4px;
-  border-bottom: 0.1em solid rgba(255, 255, 255, 0.1);
+export const Title = tw.header`
+  bg-gray-800
+  bg-opacity-20
+  h-12
+  w-full
+  flex
+  items-center
+  p-2
+  rounded
+  border-b-[-2px]
+  border-gray-900
+  border-opacity-30
+  border-solid
 `

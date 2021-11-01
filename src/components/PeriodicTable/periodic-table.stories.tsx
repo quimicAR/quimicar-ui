@@ -8,5 +8,5 @@ export default {
 } as Meta
 
 export const Default: Story = (args) => (
-  <PeriodicTable elements={[]} {...args} />
+  <PeriodicTable elements={[]} size="md" {...args} />
 )

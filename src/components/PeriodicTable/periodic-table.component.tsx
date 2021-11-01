@@ -1,10 +1,10 @@
 import * as SC from './periodic-table.styles'
-import { IAtom } from '../../models/atom'
+import { IElement } from '../../models/element'
 import { Atom } from '../../components'
-import { Size } from '../../models/styles'
+import { Size } from '../../styles/styles'
 interface PeriodicTableProps {
-  elements: IAtom[]
-  size?: Size
+  elements: IElement[]
+  size: Size
 }
 
 const PeriodicTable: React.FC<PeriodicTableProps> = ({
@@ -12,20 +12,22 @@ const PeriodicTable: React.FC<PeriodicTableProps> = ({
   size
 }): JSX.Element => {
   return (
-    <SC.PeriodicTableContainer>
-      {elements.map((element: IAtom) => {
-        const { name, number, symbol, category, xpos, ypos } = element
-        return (
-          <Atom
-            key={name}
-            atomName={name}
-            atomSymbol={symbol}
-            atomicNumber={number}
-            atomGroup={category}
-            position={{ xPos: xpos, yPos: ypos }}
-            size={size}
-          />
-        )
+    <SC.PeriodicTableContainer size={size}>
+      {elements.map((element: IElement) => {
+        const { id, name, number, symbol, category, xpos, ypos, enabled } =
+          element
+        if (enabled)
+          return (
+            <Atom
+              key={id}
+              atomName={name}
+              atomSymbol={symbol}
+              atomicNumber={number}
+              atomGroup={category}
+              position={{ xPos: xpos, yPos: ypos }}
+              size={size}
+            />
+          )
       })}
     </SC.PeriodicTableContainer>
   )

@@ -1,4 +1,4 @@
-import { TextSize, Weight } from 'models/styles'
+import { TextSize, Weight } from 'styles/styles'
 import styled, { css } from 'styled-components'
 
 interface TextProps {

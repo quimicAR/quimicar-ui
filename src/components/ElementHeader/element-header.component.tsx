@@ -9,6 +9,7 @@ interface ElementHeaderProps {
   symbol: string
   name: string
   atomic_mass: number
+  height?: string
 }
 
 const ElementHeader: React.FC<ElementHeaderProps> = ({
@@ -17,7 +18,8 @@ const ElementHeader: React.FC<ElementHeaderProps> = ({
   atomic_mass,
   name,
   number,
-  symbol
+  symbol,
+  height
 }) => {
   const formatedCategory = formatCategory(category)
 
@@ -25,30 +27,36 @@ const ElementHeader: React.FC<ElementHeaderProps> = ({
     <SC.ElementHeaderContainer
       group={formatedCategory}
       elementUrl={element_img}
+      height={height}
     >
       <SC.ElementSymbol group={formatedCategory}>
-        <div style={{ alignSelf: 'flex-end', padding: '0px 14px' }}>
-          <Text size="lg" color="var(--color-light)">
+        <div className="self-end">
+          <Text size="md" color="var(--color-light)">
             {number}
           </Text>
         </div>
-        <Text size="xxxlg" weight="bold" color="var(--color-light)">
+        <Text size="xxxlg" weight="medium" color="var(--color-light)">
           {symbol}
         </Text>
         <Text size="lg" weight="light" color="var(--color-light)">
           {name}
         </Text>
-        <Text size="md" weight="light" color="var(--color-light)">
-          {atomic_mass.toFixed(4)} (g/mol)
+        <Text
+          size="md"
+          weight="light"
+          color="var(--color-light)"
+          className="whitespace-nowrap overflow-ellipsis"
+        >
+          {atomic_mass} (g/mol)
         </Text>
       </SC.ElementSymbol>
-      <SC.ElementHeaderInfoContainer>
+      <div className="flex flex-col justify-start h-36">
         <SC.ElementCategory group={formatedCategory}>
           <Text size="md" weight="light" color="var(--color-light)">
             {category.toUpperCase()}
           </Text>
         </SC.ElementCategory>
-      </SC.ElementHeaderInfoContainer>
+      </div>
     </SC.ElementHeaderContainer>
   )
 }

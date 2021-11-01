@@ -5,14 +5,15 @@ interface StylesProps {
   group: Category
   isDarkMode?: boolean
   elementUrl?: string
+  height?: string
 }
 
 export const ElementHeaderContainer = styled.header<StylesProps>`
-  ${({ theme, group, elementUrl }) => css`
+  ${({ theme, group, elementUrl, height }) => css`
     display: flex;
     align-items: center;
     width: 100%;
-    height: 450px;
+    height: ${height || '350px'};
     margin-bottom: 1em;
     background: linear-gradient(
         to bottom,
@@ -26,7 +27,6 @@ export const ElementHeaderContainer = styled.header<StylesProps>`
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 4px;
-    padding: 2em;
   `}
 `
 
@@ -42,7 +42,6 @@ export const ElementSymbol = styled.div<StylesProps>`
     height: 140px;
     background-color: ${theme.elementsGroups[group]};
     border-radius: 4px;
-    z-index: 5;
   `}
 `
 export const ElementCategory = styled.div<StylesProps>`
@@ -57,12 +56,4 @@ export const ElementCategory = styled.div<StylesProps>`
     align-self: flex-start;
     border-radius: 5px;
   `}
-`
-
-export const ElementHeaderInfoContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 140px;
-  z-index: 5;
 `

@@ -1,7 +1,5 @@
-import axios from 'axios'
+import getAPIClient from './auth/api-ssr'
 
-const api = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`
-})
+const api = getAPIClient()
 
 export default api

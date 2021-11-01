@@ -159,5 +159,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data } = await getElementById({ id: id as string })
 
-  return { props: { data } }
+  return { props: { data }, revalidate: 60 }
 }

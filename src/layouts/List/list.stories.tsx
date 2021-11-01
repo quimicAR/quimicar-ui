@@ -8,4 +8,14 @@ export default {
   argTypes: {}
 } as Meta
 
-export const Default: Story = (args) => <List {...args} />
+export const Default: Story = (args) => (
+  <List
+    title="List Test"
+    headers={[{ id: 'name', title: 'Name' }]}
+    rows={[{ name: 'Lorem Ipsum' }]}
+    onChangeSearch={(search) => console.log(search)}
+    handleSearch={() => console.log('Searching...')}
+    handleCreate={() => console.log('Create clicked')}
+    {...args}
+  />
+)

@@ -1,43 +1,51 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useDarkMode from '../../../hooks/use-dark-theme'
 import { IElement } from '../../../models/element'
+import { FormData } from '../../../models/elements-form'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { getElementById } from '../../../services/elements/get-by-id'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, ElementHeader, Input } from '../../../components'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { schema, FormData } from '../initial-state'
 import Link from 'next/link'
 import router from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { updateElement } from '../../../services/elements/update'
 import Swal from 'sweetalert2'
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  let size = Array.from(Array(119).keys())
-  size = size.map((size) => size + 1)
-
-  const paths = size.map((id) => ({
-    params: { id: id.toString() }
-  }))
-
-  return { paths, fallback: 'blocking' }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.id
-
-  const element = await getElementById({ id: id as string })
-
-  return {
-    props: { elementData: element.data }
-  }
-}
+import * as yup from 'yup'
 
 const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
   const { isDarkMode } = useDarkMode()
   const [element, setElement] = useState<IElement | null>(elementData)
-
+  const schema = yup.object({
+    name: yup
+      .string()
+      .min(3, 'Minimun of 3 characters!')
+      .required('Element name is required!'),
+    number: yup.number().required('Please, provide the atomic number'),
+    atomic_mass: yup.number().required('Atomic Mass is required'),
+    summary: yup.string().nullable(),
+    appearance: yup.string().nullable(),
+    boil: yup.number().optional(),
+    category: yup.string().required('Element category is required'),
+    density: yup.number().optional(),
+    melt: yup.number().optional(),
+    molar_heat: yup.number().optional(),
+    discovered_by: yup.string().nullable(),
+    named_by: yup.string().nullable(),
+    period: yup.number().optional(),
+    xpos: yup.number().optional(),
+    ypos: yup.number().optional(),
+    phase: yup.string().nullable(),
+    symbol: yup.string().nullable(),
+    source: yup.string().nullable(),
+    spectral_img: yup.string().nullable(),
+    electron_configuration: yup.string().nullable(),
+    electron_configuration_semantic: yup.string().nullable(),
+    electron_affinity: yup.number().optional(),
+    element_img: yup.string().nullable(),
+    enabled: yup.bool().default(true)
+  })
   const { register, handleSubmit, formState, reset, setValue, watch } =
     useForm<FormData>({
       mode: 'onChange',
@@ -424,3 +432,24 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
 }
 
 export default Update
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  let size = Array.from(Array(119).keys())
+  size = size.map((size) => size + 1)
+
+  const paths = size.map((id) => ({
+    params: { id: id.toString() }
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params?.id
+
+  const element = await getElementById({ id: id as string })
+
+  return {
+    props: { elementData: element.data }
+  }
+}

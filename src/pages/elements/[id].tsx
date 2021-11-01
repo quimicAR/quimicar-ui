@@ -6,27 +6,9 @@ import Image from 'next/image'
 import { FiFileText, FiInfo } from 'react-icons/fi'
 import { getElementById } from '../../services/elements/get-by-id'
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  let size = Array.from(Array(119).keys())
-  size = size.map((size) => size + 1)
-
-  const paths = size.map((id) => ({
-    params: { id: id.toString() }
-  }))
-
-  return { paths, fallback: 'blocking' }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.id
-
-  const { data } = await getElementById({ id: id as string })
-
-  return { props: { data } }
-}
-
 const Element: NextPage<{ data: IElement }> = ({ data }) => {
   const { isDarkMode } = useDarkMode()
+
   const {
     name,
     summary,
@@ -160,3 +142,22 @@ const Element: NextPage<{ data: IElement }> = ({ data }) => {
 }
 
 export default Element
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  let size = Array.from(Array(119).keys())
+  size = size.map((size) => size + 1)
+
+  const paths = size.map((id) => ({
+    params: { id: id.toString() }
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params?.id
+
+  const { data } = await getElementById({ id: id as string })
+
+  return { props: { data } }
+}

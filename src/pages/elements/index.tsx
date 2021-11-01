@@ -10,7 +10,37 @@ import { FiEdit2, FiTrash } from 'react-icons/fi'
 import getAPIClient from '../../services/auth/api-ssr'
 import { deleteElement } from '../../services/elements/delete'
 import Swal from 'sweetalert2'
-import { headers } from './initial-state'
+
+const headers = [
+  {
+    id: 'number',
+    title: 'Atomic Number'
+  },
+  {
+    id: 'symbol',
+    title: 'Symbol'
+  },
+  {
+    id: 'name',
+    title: 'Name'
+  },
+  {
+    id: 'atomic_mass',
+    title: 'Atomic Mass'
+  },
+  {
+    id: 'category',
+    title: 'Category'
+  },
+  {
+    id: 'enabled',
+    title: 'Enabled'
+  },
+  {
+    id: 'actions',
+    title: 'Actions'
+  }
+]
 
 const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
   const { isDarkMode } = useDarkMode()

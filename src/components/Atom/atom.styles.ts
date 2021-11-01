@@ -1,4 +1,4 @@
-import { Category } from 'helper/format-category'
+import { Category } from 'helpers/format-category'
 import { Size } from '../../styles/styles'
 import styled, { css } from 'styled-components'
 interface AtomContainerStyleProps {

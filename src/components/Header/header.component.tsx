@@ -1,10 +1,11 @@
 import * as SC from './header.styles'
-import { FiSun, FiMoon } from 'react-icons/fi'
+import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 import useDarkMode from '../../hooks/use-dark-theme'
 import { useRouter } from 'next/router'
 import { Text } from 'components'
 import { AuthContext } from 'contexts/auth-context'
 import { useContext } from 'react'
+import { destroyCookie } from 'nookies'
 
 interface HeaderProps {
   title?: string
@@ -18,9 +19,15 @@ const iconOptions = {
 
 const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
   const router = useRouter()
-  const { isAuthenticated, user } = useContext(AuthContext)
+  const { isAuthenticated, isAdmin, user } = useContext(AuthContext)
 
   const { toggleTheme, isDarkMode } = useDarkMode()
+
+  const handleLogout = () => {
+    destroyCookie(null, 'quimicar.token')
+    router.reload()
+    router.push('/login')
+  }
 
   return (
     <SC.Header
@@ -96,6 +103,15 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
                 {user.fullName.split(' ')[0].charAt(0).toUpperCase()}
               </p>
             </div>
+            {!isAdmin && (
+              <SC.IconButton onClick={() => handleLogout()}>
+                {isDarkMode ? (
+                  <FiLogOut color="var(--color-light)" fontSize="1.2em" />
+                ) : (
+                  <FiLogOut color="var(--color-dark)" fontSize="1.2em" />
+                )}
+              </SC.IconButton>
+            )}
           </div>
         )}
       </div>

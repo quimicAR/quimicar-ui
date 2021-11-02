@@ -451,6 +451,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { elementData: element.data },
-    revalidate: 30
+    revalidate: 1
   }
 }

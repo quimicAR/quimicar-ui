@@ -209,8 +209,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { 'quimicar.token': token } = parseCookies(ctx)
 
-  const response = await apiClient.get('/roles')
-
   if (!token) {
     return {
       redirect: {
@@ -219,6 +217,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     }
   }
+
+  const response = await apiClient.get('/roles')
 
   if (!response.data) {
     return {

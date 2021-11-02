@@ -103,7 +103,9 @@ const List: React.FC<ListProps> = ({
                         {headers.map((th, thId) => (
                           <td
                             key={thId}
-                            className="table-data text-sm text-gray-100"
+                            className={`table-data text-sm ${
+                              isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                            }`}
                           >
                             {typeof rows[rowId][th.id] === 'function'
                               ? rows[rowId][th.id]()

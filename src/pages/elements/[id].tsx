@@ -133,7 +133,15 @@ const Element: NextPage<{ data: IElement }> = ({ data }) => {
               width: '100%'
             }}
           >
-            <Image src={imageUrl(number)} alt="test" width={450} height={450} />
+            <Image
+              src={imageUrl(number)}
+              alt="No image available!"
+              width={450}
+              height={450}
+              className={
+                isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'
+              }
+            />
           </div>
         </Section>
       </div>
@@ -159,5 +167,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data } = await getElementById({ id: id as string })
 
-  return { props: { data }, revalidate: 60 }
+  return { props: { data }, revalidate: 30 }
 }

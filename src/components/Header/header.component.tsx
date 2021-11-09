@@ -40,6 +40,8 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
             <img
               className="w-6 h-6 animate-spin-slow mr-3 transition duration-300"
               src={isDarkMode ? iconOptions.light : iconOptions.dark}
+              width="24px"
+              height="24px"
               alt="Imagem de um átomo"
             />
             <Text size="lg">{title}</Text>
@@ -47,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
         )}
       </div>
       <div className="flex items-center">
-        <SC.IconButton onClick={() => toggleTheme()}>
+        <SC.IconButton onClick={() => toggleTheme()} aria-label="Theme button">
           {isDarkMode ? (
             <FiSun color="var(--color-light)" fontSize="1.2em" />
           ) : (
@@ -72,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
             >
               <p
                 className={`text-sm font-medium  ${
-                  isDarkMode ? 'text-gray-100' : 'text-gray-100'
+                  isDarkMode ? 'text-gray-50' : 'text-gray-900'
                 }`}
               >
                 Sign Up

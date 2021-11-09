@@ -78,6 +78,8 @@ const Sidebar = () => {
           className="atom-icon group-hover:rotate-180 w-6 h-6 mr-4"
           src={isDarkMode ? iconOptions.light : iconOptions.dark}
           alt="Imagem de um átomo"
+          width="24px"
+          height="24px"
         />
         {isOpen && <Text size="lg">quimicAR</Text>}
       </div>

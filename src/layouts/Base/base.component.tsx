@@ -1,7 +1,9 @@
 import { useContext, useEffect } from 'react'
-import Admin from '../Admin/admin.component'
-import User from '../User/user.component'
 import { AuthContext } from '../../contexts/auth-context'
+import loadable from '@loadable/component'
+
+const Admin = loadable(() => import('../Admin/admin.component'))
+const User = loadable(() => import('../User/user.component'))
 
 const Base: React.FC = ({ children }) => {
   const { isAdmin } = useContext(AuthContext)

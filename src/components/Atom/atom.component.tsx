@@ -4,7 +4,10 @@ import useDarkMode from '../../hooks/use-dark-theme'
 import { formatCategory } from '../../helpers/format-category'
 import Link from 'next/link'
 import { Size } from '../../styles/styles'
-import { Text } from '../../components'
+import loadable from '@loadable/component'
+
+const Text = loadable(() => import('../Text/text.component'))
+
 interface AtomProps {
   atomName: string
   atomicNumber: number

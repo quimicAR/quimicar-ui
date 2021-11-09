@@ -1,7 +1,10 @@
 import * as SC from './periodic-table.styles'
 import { IElement } from '../../models/element'
-import { Atom } from '../../components'
 import { Size } from '../../styles/styles'
+import loadable from '@loadable/component'
+
+const Atom = loadable(() => import('../Atom/atom.component'))
+
 interface PeriodicTableProps {
   elements: IElement[]
   size: Size

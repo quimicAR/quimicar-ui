@@ -7,12 +7,16 @@
 yarn.lock
 package-lock.json
 
+# ide
+.vscode
+
 # testing
 /coverage
 
 # next.js
 /.next/
 /out/
+.next
 
 # production
 /build

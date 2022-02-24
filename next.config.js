@@ -3,7 +3,7 @@
 // const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  // other next config
+  generateBuildId: () => 'build',
   images: {
     domains: [
       'upload.wikimedia.org',

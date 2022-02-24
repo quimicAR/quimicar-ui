@@ -1,9 +1,9 @@
-name: Development CI
+name: Netlify Deployment
 
 on:
   push:
     branches:
-      - development
+      - main
 
 jobs:
   build:
@@ -13,5 +13,15 @@ jobs:
       - uses: actions/setup-node@v2.5.1
         with:
           node-version: 14
-      - run: npm install
+      - run: npm ci
       - run: npm run test
+      - run: npm run build
+      - uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './dist'
+          production-branch: main
+          deploy-message: 'Deploy from GitHub Actions'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1

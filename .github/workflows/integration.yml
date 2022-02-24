@@ -7,6 +7,7 @@ on:
 
 jobs:
   test:
+    name: Test pull request
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

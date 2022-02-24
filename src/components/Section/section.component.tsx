@@ -9,7 +9,7 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({ title, icon, children }) => {
   return (
-    <SC.SectionContainer>
+    <>
       <SC.Title>
         {icon}
         <Text size="lg" weight="light">
@@ -17,7 +17,7 @@ const Section: React.FC<SectionProps> = ({ title, icon, children }) => {
         </Text>
       </SC.Title>
       {children}
-    </SC.SectionContainer>
+    </>
   )
 }
 

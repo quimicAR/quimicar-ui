@@ -1,32 +1,14 @@
-import { Content, Layout, Section, Row, ElementHeader } from 'components'
-import useDarkMode from 'hooks/use-dark-theme'
-import { IAtom } from 'models/atom'
+import { Section, Row, ElementHeader } from '../../components'
+import useDarkMode from '../../hooks/use-dark-theme'
+import { IElement } from '../../models/element'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { fetcher } from 'services'
 import Image from 'next/image'
 import { FiFileText, FiInfo } from 'react-icons/fi'
+import { getElementById } from '../../services/elements/get-by-id'
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  let size = Array.from(Array(119).keys())
-  size = size.map((size) => size + 1)
-
-  const paths = size.map((id) => ({
-    params: { id: id.toString() }
-  }))
-
-  return { paths, fallback: false }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.id
-
-  const element = await fetcher('/elements/' + id)
-
-  return { props: { element } }
-}
-
-const Element: NextPage<{ element: IAtom }> = ({ element }) => {
+const Element: NextPage<{ data: IElement }> = ({ data }) => {
   const { isDarkMode } = useDarkMode()
+
   const {
     name,
     summary,
@@ -49,15 +31,17 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
     phase,
     spectral_img,
     element_img
-  } = element
+  } = data
+
   const imageUrl = (number: number) => {
     const base = '/static/markers/'
     const formatedNumber = number <= 9 ? `0${number}` : number
     const finalUrl = base + formatedNumber + '.png'
     return finalUrl
   }
+
   return (
-    <Layout>
+    <div className=" lg:w-10/12 sm:w-full">
       <ElementHeader
         category={category}
         atomic_mass={atomic_mass}
@@ -66,8 +50,7 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
         number={number}
         symbol={symbol}
       />
-
-      <Content>
+      <div className="flex flex-col">
         <Section
           icon={
             <FiFileText
@@ -82,7 +65,7 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
           <Row title="Atom name: " text={name} />
           <Row title="Summary:" text={summary} />
           <Row title=" Appearance:" text={appearance} />
-          <Row title=" Discovered:" text={discovered_by as string} />
+          <Row title=" Discovered by:" text={discovered_by as string} />
           <Row title=" Named by:" text={named_by} />
         </Section>
 
@@ -130,6 +113,7 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
             text={electron_configuration_semantic}
           />
         </Section>
+
         <Section
           icon={
             <FiInfo
@@ -149,12 +133,39 @@ const Element: NextPage<{ element: IAtom }> = ({ element }) => {
               width: '100%'
             }}
           >
-            <Image src={imageUrl(number)} alt="test" width={450} height={450} />
+            <Image
+              src={imageUrl(number)}
+              alt="No image available!"
+              width={450}
+              height={450}
+              className={
+                isDarkMode ? 'var(--color-light)' : 'var(--color-dark)'
+              }
+            />
           </div>
         </Section>
-      </Content>
-    </Layout>
+      </div>
+    </div>
   )
 }
 
 export default Element
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  let size = Array.from(Array(119).keys())
+  size = size.map((size) => size + 1)
+
+  const paths = size.map((id) => ({
+    params: { id: id.toString() }
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params?.id
+
+  const { data } = await getElementById({ id: id as string })
+
+  return { props: { data }, revalidate: 1 }
+}

@@ -4,13 +4,17 @@
 /node_modules
 /.pnp
 .pnp.js
-yarn.lock
+
+# ide
+.vscode
+
 # testing
 /coverage
 
 # next.js
 /.next/
 /out/
+.next
 
 # production
 /build
@@ -25,6 +29,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local

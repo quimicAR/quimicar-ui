@@ -3,12 +3,13 @@
 // const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  // other next config
+  generateBuildId: () => 'build',
   images: {
     domains: [
       'upload.wikimedia.org',
       'images-of-elements.com',
-      'quimicar-api.herokuapp.com'
+      'quimicar-api.herokuapp.com',
+      'en.wikipedia.org'
     ]
   }
 }

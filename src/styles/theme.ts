@@ -3,11 +3,11 @@ import { DefaultTheme } from 'styled-components'
 export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
   pallete: {
     bg: isDarkMode ? 'var(--color-dark)' : 'var(--color-light)',
-    primary: '#00ffff',
+    primary: 'var(--color-primary)',
     secondary: 'var(--color-dark)'
   },
   fonts: {
-    color: isDarkMode ? 'var(--color-light)' : '#111',
+    color: isDarkMode ? 'var(--color-light)' : 'var(--color-dark)',
     sizes: {
       xsm: '0.5rem',
       sm: '0.625rem',
@@ -20,14 +20,14 @@ export const SCTheme = (isDarkMode: boolean): DefaultTheme => ({
     weight: {
       xlight: 100,
       light: 400,
-      medium: 600,
+      medium: 500,
       bold: 700
     }
   },
   sizes: {
     xsm: '45px',
     sm: '55px',
-    md: '65px',
+    md: '60px',
     lg: '75px'
   },
   elementsGroups: {

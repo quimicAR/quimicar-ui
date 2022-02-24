@@ -1,28 +1,29 @@
 import { GetStaticProps, NextPage } from 'next'
-import { Layout, PeriodicTable } from '../components'
-import { IAtom } from 'models/atom'
-import { fetcher } from 'services/'
+import { IElement } from '../models/element'
+import { getAllElements } from '../services/elements/get-all'
+import loadable from '@loadable/component'
+
+const PeriodicTable = loadable(
+  () => import('../components/PeriodicTable/periodic-table.component')
+)
 
 export const getStaticProps: GetStaticProps = async () => {
-  const elements = await fetcher('/elements')
+  const { data } = await getAllElements()
 
-  if (!elements) {
+  if (!data) {
     return {
       notFound: true
     }
   }
 
   return {
-    props: { elements }
+    props: { data },
+    revalidate: 2
   }
 }
 
-const Home: NextPage<{ elements: IAtom[] }> = ({ elements }) => {
-  return (
-    <Layout>
-      <PeriodicTable elements={elements} />
-    </Layout>
-  )
+const Home: NextPage<{ data: IElement[] }> = ({ data }) => {
+  return <PeriodicTable size="md" elements={data} />
 }
 
 export default Home

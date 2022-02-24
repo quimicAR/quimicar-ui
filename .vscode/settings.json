@@ -4,5 +4,8 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslinter": true
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///home/c0sta/Workspace/quimicar-ui/.github/workflows/deploy.yml"
   }
 }

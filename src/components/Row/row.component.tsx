@@ -10,8 +10,8 @@ interface RowProps {
   imageUrl?: string
   measure?: string
   alt?: string
-  imgHeight?: string | number
-  imgWidth?: string | number
+  imgHeight?: number
+  imgWidth?: number
 }
 
 const Row: React.FC<RowProps> = ({
@@ -44,7 +44,7 @@ const Row: React.FC<RowProps> = ({
         <Image
           src={imageUrl}
           alt={alt}
-          width={imgWidth || 'auto'}
+          width={imgWidth || 100}
           height={imgHeight}
         />
       )}

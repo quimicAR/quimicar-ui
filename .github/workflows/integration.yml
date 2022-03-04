@@ -7,22 +7,13 @@ on:
 
 jobs:
   test:
-    name: Validate pull request
+    name: Test pull request
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
       - uses: actions/checkout@v2
-
-      - name: Setup Node
       - uses: actions/setup-node@v2.5.1
         with:
           node-version: 14
-
-      - name: Install deps
-      - run: npm ci
-
-      - name: Run lint
+      - run: npm install
       - run: npm run lint
-
-      - name: Run tests
       - run: npm run test

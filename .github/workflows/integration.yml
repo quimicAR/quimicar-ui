@@ -1,4 +1,4 @@
-name: Development Integration
+name: Development environment CI
 
 on:
   pull_request:
@@ -6,14 +6,23 @@ on:
       - development
 
 jobs:
-  test:
-    name: Test pull request
+  validate:
+    name: Validate pull request
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.5.1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: 14
-      - run: npm install
-      - run: npm run lint
-      - run: npm run test
+
+      - name: Install deps
+        run: npm install
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Check tests
+        run: npm run test

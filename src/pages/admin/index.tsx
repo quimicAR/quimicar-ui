@@ -15,7 +15,7 @@ interface FormData {
   password: string
 }
 
-const Login: NextPage = () => {
+const Admin: NextPage = () => {
   const { isDarkMode } = useDarkMode()
   const router = useRouter()
   const { setAuthenticated } = useContext(AuthContext)
@@ -83,10 +83,10 @@ const Login: NextPage = () => {
       <Button
         label="Create account"
         isLink
-        onClick={() => router.push('/register')}
+        onClick={() => router.push('/admin/register')}
       />
     </div>
   )
 }
 
-export default Login
+export default Admin

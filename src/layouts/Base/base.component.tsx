@@ -1,16 +1,27 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { AuthContext } from '../../contexts/auth-context'
-import loadable from '@loadable/component'
-
-const Admin = loadable(() => import('../Admin/admin.component'))
-const User = loadable(() => import('../User/user.component'))
+import * as SC from './base.styles'
+import useDarkMode from 'hooks/use-dark-theme'
+import { Header, Sidebar } from 'components'
 
 const Base: React.FC = ({ children }) => {
   const { isAdmin } = useContext(AuthContext)
+  const { isDarkMode } = useDarkMode()
 
-  useEffect(() => {}, [isAdmin])
-
-  return <>{isAdmin ? <Admin>{children}</Admin> : <User>{children}</User>}</>
+  return (
+    <SC.Wrapper isDarkMode={isDarkMode}>
+      <Header title="quimicAR" showTitle={!isAdmin} />
+      {isAdmin && <Sidebar />}
+      <SC.Main
+        style={{ gridArea: 'main' }}
+        className={`h-full ${
+          isDarkMode ? 'bg-secondary' : 'bg-gray-100 bg-opacity-50'
+        } `}
+      >
+        {children}
+      </SC.Main>
+    </SC.Wrapper>
+  )
 }
 
 export default Base

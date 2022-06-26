@@ -1,13 +1,6 @@
 import styled, { css } from 'styled-components'
 import tw from 'tailwind-styled-components'
 
-export const Admin = styled.div`
-  background-color: red;
-  width: 150px;
-  height: 150px;
-  padding: 3rem;
-`
-
 interface LayoutStylesProps {
   isDarkMode: boolean
 }

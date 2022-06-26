@@ -26,28 +26,27 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
   const handleLogout = () => {
     destroyCookie(null, 'quimicar.token')
     router.reload()
-    router.push('/login')
+    router.push('/')
   }
 
   return (
     <SC.Header
       style={{ gridArea: 'header' }}
       className={isDarkMode ? 'bg-gray-900' : 'bg-opacity-100'}
+      $showTitle={showTitle}
     >
-      <div>
-        {showTitle && (
-          <div className="cursor-pointer flex" onClick={() => router.push('/')}>
-            <img
-              className="w-6 h-6 animate-spin-slow mr-3 transition duration-300"
-              src={isDarkMode ? iconOptions.light : iconOptions.dark}
-              width="24px"
-              height="24px"
-              alt="Imagem de um átomo"
-            />
-            <Text size="lg">{title}</Text>
-          </div>
-        )}
-      </div>
+      {showTitle && (
+        <div className="cursor-pointer flex" onClick={() => router.push('/')}>
+          <img
+            className="w-6 h-6 animate-spin-slow mr-3 transition duration-300"
+            src={isDarkMode ? iconOptions.light : iconOptions.dark}
+            width="24px"
+            height="24px"
+            alt="Imagem de um átomo"
+          />
+          <Text size="lg">{title}</Text>
+        </div>
+      )}
       <div className="flex items-center">
         <SC.IconButton onClick={() => toggleTheme()} aria-label="Theme button">
           {isDarkMode ? (
@@ -57,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
           )}
         </SC.IconButton>
 
-        {!isAuthenticated && (
+        {/* {!isAuthenticated && (
           <div className="flex gap-4 items-center">
             <SC.IconButton onClick={() => router.push('/login')}>
               <p
@@ -81,7 +80,8 @@ const Header: React.FC<HeaderProps> = ({ title, showTitle = true }) => {
               </p>
             </SC.IconButton>
           </div>
-        )}
+        )} */}
+
         {isAuthenticated && user && (
           <div className="ml-6 flex gap-2">
             <div className="flex-col">

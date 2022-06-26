@@ -105,7 +105,9 @@ const Elements: NextPage<{ data: IElement[] }> = ({ data }) => {
         actions: () => (
           <div className="flex gap-4 justify-end">
             <button
-              onClick={() => router.push(`/elements/update/${element.number}`)}
+              onClick={() =>
+                router.push(`/admin/elements/update/${element.number}`)
+              }
             >
               <FiEdit2
                 className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}

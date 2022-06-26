@@ -71,20 +71,6 @@ const Sidebar = () => {
       <div className="flex flex-col h-full justify-between mt-4 ">
         <div className="flex flex-col items-start">
           <SidebarButton
-            icon={<FiUsers color={iconColor} fontSize="1.2em" />}
-            label="Users"
-            href="/admin/users"
-            isDarkMode={isDarkMode}
-            hideLabel={!isOpen}
-          />
-          <SidebarButton
-            icon={<FiLock color={iconColor} fontSize="1.2em" />}
-            label="Roles"
-            href="/admin/roles"
-            isDarkMode={isDarkMode}
-            hideLabel={!isOpen}
-          />
-          <SidebarButton
             icon={<GiAtom color={iconColor} fontSize="1.2em" />}
             label="Elements"
             href="/admin/elements"

@@ -83,7 +83,7 @@ const Admin: NextPage = () => {
       <Button
         label="Create account"
         isLink
-        onClick={() => router.push('/register')}
+        onClick={() => router.push('/admin/register')}
       />
     </div>
   )

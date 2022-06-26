@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
-import { Button, Input, Text } from '../../components'
-import useDarkMode from '../../hooks/use-dark-theme'
+import { Button, Input, Text } from '../../../components'
+import useDarkMode from '../../../hooks/use-dark-theme'
 import { FiAtSign, FiLock, FiUser } from 'react-icons/fi'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
-import { createUser } from '../../services/users/create'
+import { createUser } from '../../../services/users/create'
 
 interface FormData {
   firstname: string
@@ -61,7 +61,7 @@ const Register: NextPage = () => {
         if (response.status === 201) {
           reset()
           Swal.fire('Success!', 'Account was created!', 'success')
-          router.push('/login')
+          router.push('/admin')
         }
       })
       .catch((error) => {

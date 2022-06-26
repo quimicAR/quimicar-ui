@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Input, Modal } from '../../components'
-import useDarkMode from '../../hooks/use-dark-theme'
-import { List } from '../../layouts'
-import { IUser } from '../../models/user'
+import { Input, Modal } from '../../../components'
+import useDarkMode from '../../../hooks/use-dark-theme'
+import { List } from '../../../layouts'
+import { IUser } from '../../../models/user'
 import { GetServerSideProps, NextPage } from 'next'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -14,12 +14,12 @@ import {
   getAllUsers,
   getUserById,
   updateUser
-} from '../../services/users'
+} from '../../../services/users'
 import Swal from 'sweetalert2'
 import * as yup from 'yup'
 import { parseCookies } from 'nookies'
-import getAPIClient from '../../services/auth/api-ssr'
-import { IRole } from '../../models/role'
+import getAPIClient from '../../../services/auth/api-ssr'
+import { IRole } from '../../../models/role'
 
 const headers = [
   {
@@ -334,15 +334,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/',
         permanent: false
       }
     }
   }
 
-  const users = await apiClient.get('/users')
-
-  const roles = await apiClient.get('/roles')
+  const [users, roles] = await Promise.all([
+    apiClient.get('/users'),
+    apiClient.get('/roles')
+  ])
 
   if (!users.data || !roles.data) {
     return {

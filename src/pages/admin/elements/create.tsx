@@ -1,22 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import useDarkMode from '../../../hooks/use-dark-theme'
-import { IElement } from '../../../models/element'
-import { FormData } from '../../../models/elements-form'
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { getElementById } from '../../../services/elements/get-by-id'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, ElementHeader, Input } from '../../../components'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import Link from 'next/link'
 import router from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
-import { updateElement } from '../../../services/elements/update'
-import Swal from 'sweetalert2'
 import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import Swal from 'sweetalert2'
+import { Button, ElementHeader, Input } from '../../../components'
+import { FormData } from '../../../models/elements-form'
+import useDarkMode from '../../../hooks/use-dark-theme'
+import { createElement } from '../../../services/elements/create'
 
-const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
-  const { isDarkMode } = useDarkMode()
-  const [element, setElement] = useState<IElement | null>(elementData)
+const Create = () => {
   const schema = yup.object({
     name: yup
       .string()
@@ -46,11 +39,13 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
     element_img: yup.string().nullable(),
     enabled: yup.bool().default(true)
   })
-  const { register, handleSubmit, formState, reset, setValue, watch } =
-    useForm<FormData>({
+  const { isDarkMode } = useDarkMode()
+  const { register, handleSubmit, formState, reset, watch } = useForm<FormData>(
+    {
       mode: 'onChange',
       resolver: yupResolver(schema)
-    })
+    }
+  )
 
   const handleSave: SubmitHandler<FormData> = ({
     appearance,
@@ -78,7 +73,7 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
     xpos,
     ypos
   }) => {
-    updateElement({
+    createElement({
       appearance,
       atomic_mass,
       boil,
@@ -105,8 +100,8 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
       ypos
     })
       .then((response) => {
-        if (response.status === 200) {
-          Swal.fire('Success!', 'Element was updated!', 'success')
+        if (response.status === 201) {
+          Swal.fire('Success!', 'Element was created!', 'success')
           reset()
           router.push('/elements')
         }
@@ -114,81 +109,13 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
       .catch((error: any) => {
         Swal.fire(
           'Error',
-          `Error to update this element! <br> ${error.response.data.message}`,
+          `Error to create this element! <br> ${error.response.data.message}`,
           'error'
         )
       })
   }
 
   const handleCancel = () => router.push('/elements')
-
-  const populateFields = useCallback(() => {
-    console.log({ element })
-    if (element !== null) {
-      const {
-        appearance,
-        atomic_mass,
-        boil,
-        category,
-        density,
-        discovered_by,
-        electron_affinity,
-        electron_configuration,
-        electron_configuration_semantic,
-        element_img,
-        enabled,
-        melt,
-        molar_heat,
-        name,
-        named_by,
-        number,
-        period,
-        phase,
-        source,
-        spectral_img,
-        summary,
-        symbol,
-        xpos,
-        ypos
-      } = element
-
-      setValue('appearance', appearance)
-      setValue('atomic_mass', atomic_mass)
-      setValue('boil', boil)
-      setValue('category', category)
-      setValue('density', density)
-
-      setValue('discovered_by', discovered_by)
-      setValue('electron_affinity', electron_affinity)
-      setValue('electron_configuration', electron_configuration)
-      setValue(
-        'electron_configuration_semantic',
-        electron_configuration_semantic
-      )
-      setValue('element_img', element_img)
-
-      setValue('melt', melt)
-      setValue('molar_heat', molar_heat)
-      setValue('name', name)
-      setValue('named_by', named_by)
-      setValue('number', number)
-
-      setValue('period', period)
-      setValue('phase', phase)
-      setValue('source', source)
-      setValue('spectral_img', spectral_img)
-      setValue('symbol', symbol)
-
-      setValue('summary', summary)
-      setValue('enabled', enabled)
-      setValue('xpos', xpos)
-      setValue('ypos', ypos)
-    }
-  }, [element, setValue])
-
-  useEffect(() => {
-    populateFields()
-  }, [populateFields])
 
   return (
     <div className="flex flex-col w-11/12 h-full items-centers">
@@ -197,19 +124,19 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
         <h4 className="flex gap-2 items-center text-gray-600 text-sm mb-10">
           <Link href="/">Home</Link> {'>'}
           <Link href="/elements/">Elements</Link> {'>'}
-          <span className="text-blue-500 ">Update Element</span>
+          <span className="text-blue-500 ">Create Element</span>
         </h4>
         <h1
           className={`${
             isDarkMode ? 'text-gray-100' : 'text-gray-900'
           } text-left text-3xl`}
         >
-          Update Element
+          Create Element
         </h1>
       </div>
 
       {/* MAIN CONTAINER */}
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-5">
         <div className="-my-2 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div
@@ -219,17 +146,15 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
             >
               <div className="flex flex-col gap-10 w-full p-10">
                 <div>
-                  {element && (
-                    <ElementHeader
-                      category={watch('category') || element.category}
-                      atomic_mass={watch('atomic_mass') || element.atomic_mass}
-                      element_img={watch('element_img') || element.element_img}
-                      name={watch('name') || element.name}
-                      number={watch('number') || element.number}
-                      symbol={watch('symbol') || element.symbol}
-                      height="300px"
-                    />
-                  )}
+                  <ElementHeader
+                    category={watch('category') || 'nobleGases'}
+                    atomic_mass={watch('atomic_mass')}
+                    element_img={watch('element_img') || ''}
+                    name={watch('name') || 'Unknown'}
+                    number={watch('number') || 0}
+                    symbol={watch('symbol') || 'Unk'}
+                    height="300px"
+                  />
                 </div>
 
                 <div className="flex gap-10 w-full">
@@ -408,7 +333,7 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
               <div
                 className={`${
                   isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
-                } px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded sm:rounded-lg`}
+                } px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse`}
               >
                 <Button
                   type="button"
@@ -431,26 +356,4 @@ const Update: NextPage<{ elementData: IElement }> = ({ elementData }) => {
   )
 }
 
-export default Update
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  let size = Array.from(Array(119).keys())
-  size = size.map((size) => size + 1)
-
-  const paths = size.map((id) => ({
-    params: { id: id.toString() }
-  }))
-
-  return { paths, fallback: 'blocking' }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.id
-
-  const element = await getElementById({ id: id as string })
-
-  return {
-    props: { elementData: element.data },
-    revalidate: 1
-  }
-}
+export default Create

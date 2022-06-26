@@ -15,7 +15,7 @@ interface FormData {
   password: string
 }
 
-const Login: NextPage = () => {
+const Admin: NextPage = () => {
   const { isDarkMode } = useDarkMode()
   const router = useRouter()
   const { setAuthenticated } = useContext(AuthContext)
@@ -89,4 +89,4 @@ const Login: NextPage = () => {
   )
 }
 
-export default Login
+export default Admin

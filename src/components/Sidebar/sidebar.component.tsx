@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { IconType } from 'react-icons'
 import {
   FiLock,
   FiUsers,
@@ -9,47 +8,16 @@ import {
 } from 'react-icons/fi'
 import { GiAtom } from 'react-icons/gi'
 import * as SC from './sidebar.styles'
-import Link from 'next/link'
 import useDarkMode from '../../hooks/use-dark-theme'
 import { destroyCookie } from 'nookies'
 import { Text } from '../../components'
 import { useState } from 'react'
+import SidebarButton from './SidebarButton/sidebar-button.component'
 
 const iconOptions = {
   light: '/img/atom-light.svg',
   dark: '/img/atom-dark.svg'
 }
-
-const SidebarButton: React.FC<{
-  icon: IconType | JSX.Element
-  label: string
-  href: string
-  onClick?: () => void
-  hideLabel?: boolean
-  isDarkMode: boolean
-}> = ({ icon, label, href, isDarkMode, onClick, hideLabel }) => (
-  <Link href={href}>
-    <div
-      onClick={onClick}
-      className={`sidebar-animation flex gap-3 items-center h-12 w-full px-6 cursor-pointer  hover:bg-primary transition-all duration-300 ease-linear group justify-start ${
-        isDarkMode && 'bg-gray-900'
-      } `}
-    >
-      {icon}
-      {hideLabel ? (
-        <span
-          className={`ml-5 z-20 sidebar-tooltip group-hover:scale-100  ${
-            hideLabel && 'overflow-hidden'
-          }`}
-        >
-          {label}
-        </span>
-      ) : (
-        <Text>{label}</Text>
-      )}
-    </div>
-  </Link>
-)
 
 const Sidebar = () => {
   const router = useRouter()
@@ -60,7 +28,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     destroyCookie(null, 'quimicar.token')
     router.reload()
-    router.push('/login')
+    router.push('/')
   }
 
   return (
@@ -105,21 +73,21 @@ const Sidebar = () => {
           <SidebarButton
             icon={<FiUsers color={iconColor} fontSize="1.2em" />}
             label="Users"
-            href="/users"
+            href="/admin/users"
             isDarkMode={isDarkMode}
             hideLabel={!isOpen}
           />
           <SidebarButton
             icon={<FiLock color={iconColor} fontSize="1.2em" />}
             label="Roles"
-            href="/roles"
+            href="/admin/roles"
             isDarkMode={isDarkMode}
             hideLabel={!isOpen}
           />
           <SidebarButton
             icon={<GiAtom color={iconColor} fontSize="1.2em" />}
             label="Elements"
-            href="/elements"
+            href="/admin/elements"
             isDarkMode={isDarkMode}
             hideLabel={!isOpen}
           />
@@ -128,7 +96,7 @@ const Sidebar = () => {
           <SidebarButton
             icon={<FiLogOut color={iconColor} fontSize="1.2em" />}
             label="Logout"
-            href="/login"
+            href="/"
             isDarkMode={isDarkMode}
             onClick={handleLogout}
             hideLabel={!isOpen}

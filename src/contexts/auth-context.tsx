@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { createContext, useEffect, useState } from 'react'
 import { recover, signIn } from '../services/auth'
 import { setCookie, parseCookies } from 'nookies'
@@ -63,7 +61,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         `Error to login! <br> ${error.response.data.message}`,
         'error'
       )
-      Router.push('/login')
+      Router.push('/admin')
     }
   }
 
@@ -79,7 +77,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         setIsAdmin(role === 'ROLE_ADMIN' || false)
         api.defaults!.headers!['Authorization'] = `Bearer ${token}`
       })
-    } else Router.push('/')
+    }
   }, [])
 
   return (
